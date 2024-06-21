@@ -7,26 +7,23 @@ import Subtitle from "@/components/Typography/Subtitle";
 import Text from "@/components/Typography/Text";
 import { Button, Flex, Form, TextField } from "@adobe/react-spectrum";
 
-export default function Home() {
+export default function SignIn() {
   return (
     <main className="flex min-h-screen flex-col items-center gap-20 p-20">
       <PublicHeader />
       <Flex direction="column">
-        <Heading>Cadastrar</Heading>
+        <Heading>Entrar</Heading>
         <Subtitle>
-          Cadastre-se e comece a gerenciar seus aluguéis de forma fácil.
+          Bem-vindo de volta! Insira seus dados para gerenciar seus aluguéis.
         </Subtitle>
         <Text>
-          Já tem uma conta? <Link href="/signin">Entrar</Link>
+          Não tem uma conta? <Link href="/">Cadastre-se!</Link>
         </Text>
         <Form isRequired>
-          <TextField label="First ame" />
-          <TextField label="Last Name" />
           <TextField label="Email" />
           <TextField type="password" label="Password" />
-          <TextField type="password" label="Confirm Password" />
           <Button variant="cta" type="submit" marginTop="size-300">
-            Cadastrar
+            Entrar
           </Button>
         </Form>
       </Flex>
