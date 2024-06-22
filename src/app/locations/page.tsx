@@ -7,20 +7,47 @@ import {
   ActionButton,
   Cell,
   Column,
-  Content,
-  Dialog,
   DialogTrigger,
-  Divider,
   Flex,
   Row,
   TableBody,
   TableHeader,
   TableView,
-  Text,
-  Heading as SpectrumHeading,
 } from "@adobe/react-spectrum";
+import CreateLocationModal from "./comopnents/CreateLocationModal";
+import EditLocationModal from "./comopnents/EditLocationModal";
+import { useCallback, useEffect, useState } from "react";
+import { BASE_URL } from "@/constants";
+import Text from "@/components/Typography/Text";
+import { Location } from "@/types/Location";
 
 function Locations() {
+  const [locations, setLocations] = useState<Location[]>([]);
+
+  const fetchLocations = useCallback(async () => {
+    const token = localStorage.getItem("access_token");
+    const response = await fetch(`${BASE_URL}/locations`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const responseData = await response.json();
+    console.log({ responseData });
+    if (response.ok && responseData) {
+      setLocations(responseData);
+    } else {
+      alert("Erro ao carregar Imóveis");
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("Locations useEffect");
+
+    fetchLocations();
+  }, [fetchLocations]);
+
   return (
     <>
       <PrivateHeader />
@@ -30,56 +57,38 @@ function Locations() {
 
           <DialogTrigger isDismissable type="modal">
             <ActionButton>Adicionar novo imóvel</ActionButton>
-            <Dialog>
-              <SpectrumHeading>Modal</SpectrumHeading>
-              <Divider />
-              <Content>
-                <Text>This is a modal.</Text>
-              </Content>
-            </Dialog>
+            <CreateLocationModal />
           </DialogTrigger>
 
-          <TableView flex aria-label="Locations table">
-            <TableHeader>
-              <Column>Nome</Column>
-              <Column>Endereço</Column>
-              <Column>Ação</Column>
-            </TableHeader>
-            <TableBody>
-              <Row>
-                <Cell>Games</Cell>
-                <Cell>File folder</Cell>
-                <Cell>
-                  <DialogTrigger isDismissable type="modal">
-                    <ActionButton>Ver imóvel</ActionButton>
-                    <Dialog>
-                      <SpectrumHeading>Imóvel X</SpectrumHeading>
-                      <Divider />
-                      <Content>
-                        <Text>This is a modal.</Text>
-                      </Content>
-                    </Dialog>
-                  </DialogTrigger>
-                </Cell>
-              </Row>
-              <Row>
-                <Cell>Games 2</Cell>
-                <Cell>File folder 2</Cell>
-                <Cell>
-                  <DialogTrigger isDismissable type="modal">
-                    <ActionButton>Ver imóvel</ActionButton>
-                    <Dialog>
-                      <SpectrumHeading>Imóvel X</SpectrumHeading>
-                      <Divider />
-                      <Content>
-                        <Text>This is a modal.</Text>
-                      </Content>
-                    </Dialog>
-                  </DialogTrigger>
-                </Cell>
-              </Row>
-            </TableBody>
-          </TableView>
+          {locations.length === 0 ? (
+            <Text>Você ainda não possui imóveis</Text>
+          ) : (
+            <TableView flex aria-label="Locations table">
+              <TableHeader>
+                <Column>Nome</Column>
+                <Column allowsResizing>Endereço</Column>
+                <Column align="end">Ação</Column>
+              </TableHeader>
+              <TableBody>
+                {locations.map((location) => (
+                  <Row key={location.id}>
+                    <Cell>{location.name}</Cell>
+                    <Cell>
+                      {location.street}, {location.number},{" "}
+                      {location.neighborhood}, {location.city}, {location.state}
+                      , {location.country}, {location.postalCode}
+                    </Cell>
+                    <Cell>
+                      <DialogTrigger isDismissable type="modal">
+                        <ActionButton>Ver imóvel</ActionButton>
+                        <EditLocationModal location={location} />
+                      </DialogTrigger>
+                    </Cell>
+                  </Row>
+                ))}
+              </TableBody>
+            </TableView>
+          )}
         </Flex>
       </main>
     </>
