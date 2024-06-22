@@ -6,10 +6,11 @@ import Heading from "@/components/Typography/Heading";
 import Link from "@/components/Typography/Link";
 import Subtitle from "@/components/Typography/Subtitle";
 import Text from "@/components/Typography/Text";
+import withoutAuth from "@/hooks/withoutAuth";
 import { Flex, Form, TextField } from "@adobe/react-spectrum";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
+function Home() {
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,3 +42,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default withoutAuth(Home);

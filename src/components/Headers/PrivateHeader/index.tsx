@@ -31,7 +31,8 @@ export default function PrivateHeader() {
         </Button>
         <Button
           onClick={() => {
-            router.push("/");
+            localStorage.removeItem("access_token");
+            router.push("/signin");
           }}
         >
           Sair

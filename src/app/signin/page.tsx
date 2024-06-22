@@ -7,11 +7,12 @@ import Link from "@/components/Typography/Link";
 import Subtitle from "@/components/Typography/Subtitle";
 import Text from "@/components/Typography/Text";
 import { BASE_URL } from "@/constants";
+import withoutAuth from "@/hooks/withoutAuth";
 import { Flex, Form, TextField } from "@adobe/react-spectrum";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 
-export default function SignIn() {
+function SignIn() {
   const router = useRouter();
 
   let { handleSubmit, control } = useForm({
@@ -21,8 +22,6 @@ export default function SignIn() {
     },
   });
   let onSubmit = async (data: any) => {
-    console.log({ data });
-
     const response = await fetch(`${BASE_URL}/auth/signin`, {
       method: "POST",
       headers: {
@@ -31,15 +30,14 @@ export default function SignIn() {
       body: JSON.stringify(data),
     });
 
-    console.log({ response });
-
-    // if (response.ok) {
-    //   const data = await response.json();
-    //   localStorage.setItem('access_token', data.access_token); // Store token in localStorage
-    //   router.push('/'); // Redirect to home page or dashboard
-    // } else {
-    //   alert('Login failed');
-    // }
+    const responseData = await response.json();
+    if (response.ok) {
+      localStorage.setItem("access_token", responseData.access_token);
+      router.push("/locations");
+    } else {
+      const { error, message } = responseData;
+      alert(message);
+    }
   };
 
   return (
@@ -101,3 +99,5 @@ export default function SignIn() {
     </main>
   );
 }
+
+export default withoutAuth(SignIn);

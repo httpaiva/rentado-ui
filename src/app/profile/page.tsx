@@ -3,9 +3,10 @@
 import Button from "@/components/Button";
 import PrivateHeader from "@/components/Headers/PrivateHeader";
 import Heading from "@/components/Typography/Heading";
+import withAuth from "@/hooks/withAuth";
 import { Flex, Form, TextField } from "@adobe/react-spectrum";
 
-export default function Profile() {
+function Profile() {
   return (
     <>
       <PrivateHeader />
@@ -25,3 +26,5 @@ export default function Profile() {
     </>
   );
 }
+
+export default withAuth(Profile);
