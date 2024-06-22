@@ -72,6 +72,7 @@ function SignIn() {
               />
             )}
           />
+
           <Controller
             control={control}
             name="password"
@@ -93,6 +94,7 @@ function SignIn() {
               />
             )}
           />
+
           <Button type="submit">Entrar</Button>
         </Form>
       </Flex>

@@ -6,17 +6,46 @@ import Heading from "@/components/Typography/Heading";
 import Link from "@/components/Typography/Link";
 import Subtitle from "@/components/Typography/Subtitle";
 import Text from "@/components/Typography/Text";
+import { BASE_URL } from "@/constants";
 import withoutAuth from "@/hooks/withoutAuth";
 import { Flex, Form, TextField } from "@adobe/react-spectrum";
 import { useRouter } from "next/navigation";
+import { useForm, Controller } from "react-hook-form";
 
 function Home() {
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({ e });
-    // router.push("/locations");
+  let { handleSubmit, control } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+  let onSubmit = async (data: any) => {
+    if (data.password !== data.confirmPassword) {
+      alert("As senhas não coincidem");
+      return;
+    }
+
+    const response = await fetch(`${BASE_URL}/user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+    if (response.ok) {
+      alert("Usuário criado com sucesso!");
+      router.push("/signin");
+    } else {
+      const { error, message } = responseData;
+      alert(message);
+    }
   };
 
   return (
@@ -30,12 +59,115 @@ function Home() {
         <Text>
           Já tem uma conta? <Link href="/signin">Entrar</Link>
         </Text>
-        <Form isRequired width="size-4600" onSubmit={handleSubmit}>
-          <TextField label="First Name" />
-          <TextField label="Last Name" />
-          <TextField label="Email" />
-          <TextField type="password" label="Password" />
-          <TextField type="password" label="Confirm Password" />
+
+        <Form isRequired width="size-4600" onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            control={control}
+            name="firstName"
+            rules={{ required: "Nome é obrigatório" }}
+            render={({
+              field: { name, value, onChange, onBlur, ref },
+              fieldState: { invalid, error },
+            }) => (
+              <TextField
+                label="Nome"
+                name={name}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                ref={ref}
+                isRequired
+                errorMessage={error?.message}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="lastName"
+            rules={{ required: "Sobrenome é obrigatório" }}
+            render={({
+              field: { name, value, onChange, onBlur, ref },
+              fieldState: { invalid, error },
+            }) => (
+              <TextField
+                label="lastName"
+                name={name}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                ref={ref}
+                isRequired
+                errorMessage={error?.message}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: "E-mail é obrigatório" }}
+            render={({
+              field: { name, value, onChange, onBlur, ref },
+              fieldState: { invalid, error },
+            }) => (
+              <TextField
+                label="E-mail"
+                name={name}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                ref={ref}
+                isRequired
+                errorMessage={error?.message}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="password"
+            rules={{ required: "Senha é obrigatória" }}
+            render={({
+              field: { name, value, onChange, onBlur, ref },
+              fieldState: { invalid, error },
+            }) => (
+              <TextField
+                label="Senha"
+                name={name}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                ref={ref}
+                isRequired
+                type="password"
+                errorMessage={error?.message}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="confirmPassword"
+            rules={{ required: "Confirmação de senha é obrigatória" }}
+            render={({
+              field: { name, value, onChange, onBlur, ref },
+              fieldState: { invalid, error },
+            }) => (
+              <TextField
+                label="Confirmar senha"
+                name={name}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                ref={ref}
+                isRequired
+                type="password"
+                errorMessage={error?.message}
+              />
+            )}
+          />
+
           <Button type="submit">Cadastrar</Button>
         </Form>
       </Flex>
