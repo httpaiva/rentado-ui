@@ -1,8 +1,8 @@
 "use client";
 
-import Button from "@/components/Button";
 import PrivateHeader from "@/components/Headers/PrivateHeader";
 import Heading from "@/components/Typography/Heading";
+import withAuth from "@/hooks/withAuth";
 import {
   ActionButton,
   Cell,
@@ -20,7 +20,7 @@ import {
   Heading as SpectrumHeading,
 } from "@adobe/react-spectrum";
 
-export default function Locations() {
+function Locations() {
   return (
     <>
       <PrivateHeader />
@@ -85,3 +85,5 @@ export default function Locations() {
     </>
   );
 }
+
+export default withAuth(Locations);

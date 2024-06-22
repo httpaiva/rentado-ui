@@ -7,8 +7,17 @@ import Link from "@/components/Typography/Link";
 import Subtitle from "@/components/Typography/Subtitle";
 import Text from "@/components/Typography/Text";
 import { Flex, Form, TextField } from "@adobe/react-spectrum";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log({ e });
+    // router.push("/locations");
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center gap-20 p-20">
       <PublicHeader />
@@ -20,7 +29,7 @@ export default function Home() {
         <Text>
           Já tem uma conta? <Link href="/signin">Entrar</Link>
         </Text>
-        <Form isRequired width="size-4600">
+        <Form isRequired width="size-4600" onSubmit={handleSubmit}>
           <TextField label="First Name" />
           <TextField label="Last Name" />
           <TextField label="Email" />
