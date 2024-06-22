@@ -1,11 +1,12 @@
 "use client";
 
+import Button from "@/components/Button";
 import PublicHeader from "@/components/Headers/PublicHeader";
 import Heading from "@/components/Typography/Heading";
 import Link from "@/components/Typography/Link";
 import Subtitle from "@/components/Typography/Subtitle";
 import Text from "@/components/Typography/Text";
-import { Button, Flex, Form, TextField } from "@adobe/react-spectrum";
+import { Flex, Form, TextField } from "@adobe/react-spectrum";
 
 export default function Home() {
   return (
@@ -19,15 +20,13 @@ export default function Home() {
         <Text>
           Já tem uma conta? <Link href="/signin">Entrar</Link>
         </Text>
-        <Form isRequired>
-          <TextField label="First ame" />
+        <Form isRequired width="size-4600">
+          <TextField label="First Name" />
           <TextField label="Last Name" />
           <TextField label="Email" />
           <TextField type="password" label="Password" />
           <TextField type="password" label="Confirm Password" />
-          <Button variant="cta" type="submit" marginTop="size-300">
-            Cadastrar
-          </Button>
+          <Button type="submit">Cadastrar</Button>
         </Form>
       </Flex>
     </main>
