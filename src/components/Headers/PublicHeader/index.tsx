@@ -10,13 +10,6 @@ export default function PublicHeader() {
         width={250}
         priority
       />
-      <Image
-        src="/rentado-subtitle.svg"
-        alt="Rentado Subtitle"
-        height={20}
-        width={360}
-        priority
-      />
     </div>
   );
 }
