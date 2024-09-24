@@ -1,22 +1,33 @@
 "use client";
 
 import Button from "@/components/Button";
-import PublicHeader from "@/components/Headers/PublicHeader";
-import Heading from "@/components/Typography/Heading";
-import Link from "@/components/Typography/Link";
-import Subtitle from "@/components/Typography/Subtitle";
-import Text from "@/components/Typography/Text";
-import { BASE_URL } from "@/constants";
 import withoutAuth from "@/hooks/withoutAuth";
-import { useRouter } from "next/navigation";
+import { colors } from "@/utils/tokens";
+import { Section } from "@/components/Section";
+import PublicHeader from "@/components/Headers/PublicHeader";
+import { Footer } from "@/components/Footer";
+
 
 function Home() {
-  const router = useRouter();
-
   return (
-    <main className="flex min-h-screen flex-col items-center gap-20 p-20">
+    <main>
       <PublicHeader />
-      <h1>Home</h1>
+      <Section bgColor={colors.blue} id="start">
+        <h1>Conteúdo centralizado</h1>
+      </Section>
+      <Section bgColor={colors.gray_dark} id="what-is">
+        <h1>Conteúdo centralizado</h1>
+      </Section>
+      <Section bgColor={colors.white} id="how-it-works">
+        <h1>Conteúdo centralizado</h1>
+      </Section>
+      <Section bgColor={colors.gray_dark} id="benefits">
+        <h1>Conteúdo centralizado</h1>
+      </Section>
+      <Section bgColor={colors.blue} id="contact">
+        <h1>Conteúdo centralizado</h1>
+      </Section>
+      <Footer />
     </main>
   );
 }

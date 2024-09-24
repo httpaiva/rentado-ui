@@ -56,7 +56,7 @@ export default function CreateLocationModal({ location }: Props) {
     const token = localStorage.getItem("access_token");
 
     const confirmation = window.confirm(
-      "Tem certeza que deseja deletar esse imóvel?"
+      "Tem certeza que deseja deletar esse imóvel?",
     );
 
     if (confirmation) {

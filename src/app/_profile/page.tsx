@@ -41,7 +41,7 @@ function Profile() {
         alert("Erro ao carregar informações do usuário");
       }
     },
-    [reset]
+    [reset],
   );
 
   useEffect(() => {
@@ -94,7 +94,7 @@ function Profile() {
     const userId = decoded.sub;
 
     const confirmation = window.confirm(
-      "Tem certeza que deseja deletar sua conta?"
+      "Tem certeza que deseja deletar sua conta?",
     );
 
     if (confirmation) {
