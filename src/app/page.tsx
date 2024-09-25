@@ -182,7 +182,8 @@ function Home() {
             style={{
               position: "relative",
               top: -125,
-              right: -320
+              right: -320,
+              zIndex: 1,
             }}
           >
             <Image

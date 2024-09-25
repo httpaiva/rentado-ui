@@ -4,7 +4,7 @@ import { HeaderAnchor, HeaderWrapper, HeaderGroup } from "./styles";
 
 export default function PublicHeader() {
   return (
-    <HeaderWrapper>
+    <HeaderWrapper style={{zIndex: 2}}>
       <Image
         src="/rentado-logo.svg"
         alt="Rentado Logo"
