@@ -5,6 +5,7 @@ type SectionProps = {
   bgColor: string;
   id?: string;
   children: ReactNode;
+  minHeight?: number;
 }
 
 export const Section = (props: SectionProps) => {
