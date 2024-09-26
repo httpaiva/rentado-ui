@@ -16,7 +16,7 @@ function Home() {
   return (
     <main>
       <PublicHeader />
-      <Section bgColor={colors.blue} id="start">
+      <Section bgColor={colors.blue} id="start" >
         <div
           style={{
             display: "flex",
@@ -40,7 +40,7 @@ function Home() {
             <H3 color={colors.white}>
               Gerencie contratos, pagamentos e prazos em um só lugar
             </H3>
-            <CTAButton>Cadastre-se agora</CTAButton>
+            {/*<CTAButton>Cadastre-se agora</CTAButton>*/}
           </div>
 
           <Image
@@ -162,8 +162,17 @@ function Home() {
       </Section>
       <Section bgColor={colors.gray_dark} id="benefits">
         <Card bgColor={colors.blue} gap={32}>
-          <div style={{textAlign: 'initial', maxWidth: 500, display: 'flex', flexDirection: 'column', gap: 32, margin: 20}}>
-          <H2 color={colors.white}>Benefícios de Usar o Rentado</H2>
+          <div
+            style={{
+              textAlign: "initial",
+              maxWidth: 500,
+              display: "flex",
+              flexDirection: "column",
+              gap: 32,
+              margin: 20,
+            }}
+          >
+            <H2 color={colors.white}>Benefícios de Usar o Rentado</H2>
             <P color={colors.white}>
               - Gerenciamento Completo: Controle total sobre seus imóveis e
               contratos.
@@ -179,34 +188,42 @@ function Home() {
           </div>
         </Card>
         <div
-            style={{
-              position: "relative",
-              top: -125,
-              right: -320,
-              zIndex: 1,
-            }}
-          >
-            <Image
-              src="/device.svg"
-              alt="Smartphone device"
-              height={250}
-              width={240}
-            />
-          </div>
+          style={{
+            position: "relative",
+            top: -125,
+            right: -320,
+            zIndex: 1,
+          }}
+        >
+          <Image
+            src="/device.svg"
+            alt="Smartphone device"
+            height={250}
+            width={240}
+          />
+        </div>
       </Section>
-      <Section bgColor={colors.blue} id="contact" minHeight={480}>
-        <H2 color={colors.white}>
-          Pronto para simplificar a gestão dos seus imóveis?
-        </H2>
+      <Section bgColor={colors.blue} id="contact" minHeight={360}>
         <div
           style={{
             display: "flex",
-            gap: 56,
-            padding: 56,
+            flexDirection: "column",
+            gap: 24,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <CTAButton>Comece agora</CTAButton>
-          <CTAButton>Entre em contato</CTAButton>
+          <H2 color={colors.white}>
+            Pronto para simplificar a gestão dos seus imóveis?
+          </H2>
+
+          <H2 color={colors.white}>Entre em contato:</H2>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <Image src="/gmail.svg" alt="Gmail Logo" height={40} width={40} />
+            <H3 color={colors.white}>rentadooficial@gmail.com</H3>
+          </div>
+          {/*<CTAButton>Comece agora</CTAButton>
+          <CTAButton>Entre em contato</CTAButton>*/}
         </div>
       </Section>
       <Footer />

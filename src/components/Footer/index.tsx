@@ -13,7 +13,7 @@ export const Footer = () => {
       />
       <p style={{color: '#fff'}}>© 2024 Rentado. Todos os direitos reservados.</p>
       <FooterGroup>
-      <Image
+      {/*<Image
         src="/gmail.svg"
         alt="Gmail Logo"
         height={40}
@@ -30,7 +30,7 @@ export const Footer = () => {
         alt="Instagram Logo"
         height={40}
         width={40}
-      />
+      />*/}
       </FooterGroup>
     </FooterWrapper>
   );
