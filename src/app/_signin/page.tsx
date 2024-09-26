@@ -1,7 +1,6 @@
 "use client";
 
 import Button from "@/components/Button";
-import PublicHeader from "@/components/Headers/PublicHeader";
 import Heading from "@/components/Typography/Heading";
 import Link from "@/components/Typography/Link";
 import Subtitle from "@/components/Typography/Subtitle";
@@ -42,7 +41,6 @@ function SignIn() {
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-20 p-20">
-      <PublicHeader />
       <Flex direction="column">
         <Heading>Entrar</Heading>
         <Subtitle>
