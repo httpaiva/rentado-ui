@@ -2,7 +2,7 @@
 
 import Button from "@/components/Button";
 import PrivateHeader from "@/components/Headers/PrivateHeader";
-import Heading from "@/components/Typography/Heading";
+import Heading from "@/components/home/Typography/Heading";
 import { BASE_URL } from "@/constants";
 import withAuth from "@/hooks/withAuth";
 import { Flex, Form, TextField } from "@adobe/react-spectrum";

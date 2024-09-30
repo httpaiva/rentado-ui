@@ -1,7 +1,7 @@
 "use client";
 
 import PrivateHeader from "@/components/Headers/PrivateHeader";
-import Heading from "@/components/Typography/Heading";
+import Heading from "@/components/home/Typography/Heading";
 import withAuth from "@/hooks/withAuth";
 import {
   ActionButton,
@@ -18,7 +18,7 @@ import CreateLocationModal from "./comopnents/CreateLocationModal";
 import EditLocationModal from "./comopnents/EditLocationModal";
 import { useCallback, useEffect, useState } from "react";
 import { BASE_URL } from "@/constants";
-import Text from "@/components/Typography/Text";
+import Text from "@/components/home/Typography/Text";
 import { Location } from "@/types/Location";
 
 function Locations() {

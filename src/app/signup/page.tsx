@@ -1,10 +1,10 @@
 "use client";
 
 import Button from "@/components/Button";
-import Heading from "@/components/Typography/Heading";
-import Link from "@/components/Typography/Link";
-import Subtitle from "@/components/Typography/Subtitle";
-import Text from "@/components/Typography/Text";
+import Heading from "@/components/home/Typography/Heading";
+import Link from "@/components/home/Typography/Link";
+import Subtitle from "@/components/home/Typography/Subtitle";
+import Text from "@/components/home/Typography/Text";
 import { BASE_URL } from "@/constants";
 import withoutAuth from "@/hooks/withoutAuth";
 import { Flex, Form, TextField } from "@adobe/react-spectrum";

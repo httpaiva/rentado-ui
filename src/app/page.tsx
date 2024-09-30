@@ -5,12 +5,12 @@ import { colors } from "@/utils/tokens";
 import { Section } from "@/components/home/Section";
 import PublicHeader from "@/components/home/PublicHeader";
 import { Footer } from "@/components/Footer";
-import { H1 } from "@/components/Typography/H1";
-import { H2 } from "@/components/Typography/H2";
-import { H3 } from "@/components/Typography/H3";
+import { H1 } from "@/components/home/Typography/H1";
+import { H2 } from "@/components/home/Typography/H2";
+import { H3 } from "@/components/home/Typography/H3";
 import Image from "next/image";
 import { Card, CTAButton, CTAAnchor } from "@/components/home/styles";
-import { P } from "@/components/Typography/P";
+import { P } from "@/components/home/Typography/P";
 
 function Home() {
   return (
