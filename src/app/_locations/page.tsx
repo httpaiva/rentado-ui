@@ -1,7 +1,6 @@
 "use client";
 
 import PrivateHeader from "@/components/Headers/PrivateHeader";
-import Heading from "@/components/home/Typography/Heading";
 import withAuth from "@/hooks/withAuth";
 import {
   ActionButton,
@@ -17,16 +16,16 @@ import {
 import CreateLocationModal from "./comopnents/CreateLocationModal";
 import EditLocationModal from "./comopnents/EditLocationModal";
 import { useCallback, useEffect, useState } from "react";
-import { BASE_URL } from "@/constants";
-import Text from "@/components/home/Typography/Text";
+import { API_BASE_URL } from "@/constants";
 import { Location } from "@/types/Location";
+import { H1, P } from "@/components";
 
 function Locations() {
   const [locations, setLocations] = useState<Location[]>([]);
 
   const fetchLocations = useCallback(async () => {
     const token = localStorage.getItem("access_token");
-    const response = await fetch(`${BASE_URL}/locations`, {
+    const response = await fetch(`${API_BASE_URL}/locations`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +52,7 @@ function Locations() {
       <PrivateHeader />
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
         <Flex height="100%" width="100%" direction="column" gap="size-150">
-          <Heading>Seus Imóveis</Heading>
+          <H1>Seus Imóveis</H1>
 
           <DialogTrigger isDismissable type="modal">
             <ActionButton>Adicionar novo imóvel</ActionButton>
@@ -61,7 +60,7 @@ function Locations() {
           </DialogTrigger>
 
           {locations.length === 0 ? (
-            <Text>Você ainda não possui imóveis</Text>
+            <P>Você ainda não possui imóveis</P>
           ) : (
             <TableView flex aria-label="Locations table">
               <TableHeader>

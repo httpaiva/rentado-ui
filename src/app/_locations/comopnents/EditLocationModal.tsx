@@ -7,8 +7,8 @@ import {
   TextField,
 } from "@adobe/react-spectrum";
 import { useForm, Controller } from "react-hook-form";
-import { BASE_URL } from "@/constants";
-import Button from "@/components/Button";
+import { API_BASE_URL } from "@/constants";
+import { Button } from "@/components";
 import { Location } from "@/types/Location";
 
 type Props = {
@@ -33,7 +33,7 @@ export default function CreateLocationModal({ location }: Props) {
   const onSubmit = async (data: any) => {
     const token = localStorage.getItem("access_token");
 
-    const response = await fetch(`${BASE_URL}/locations/${location.id}`, {
+    const response = await fetch(`${API_BASE_URL}/locations/${location.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function CreateLocationModal({ location }: Props) {
     );
 
     if (confirmation) {
-      const response = await fetch(`${BASE_URL}/locations/${location.id}`, {
+      const response = await fetch(`${API_BASE_URL}/locations/${location.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -275,7 +275,7 @@ export default function CreateLocationModal({ location }: Props) {
           <Button type="submit">Editar imóvel</Button>
         </Form>
 
-        <Button onClick={onDelete} variant="danger">
+        <Button onClick={onDelete} variant="destructive">
           Deletar Imóvel
         </Button>
       </Content>

@@ -1,12 +1,12 @@
 type PProps = {
-    children: React.ReactElement,
-    color?: string,
-}
+  children: React.ReactNode;
+  color?: string;
+};
 
-export const P = ({ children, color = "text-zinc-950" }: PProps): React.ReactElement => {
+export const P = ({ children, color = "text-zinc-950" }: PProps) => {
   return (
     <p className={`leading-7 [&:not(:first-child)]:mt-6 ${color}`}>
-     {children}
+      {children}
     </p>
   );
 };

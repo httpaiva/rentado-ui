@@ -7,8 +7,8 @@ import {
   TextField,
 } from "@adobe/react-spectrum";
 import { useForm, Controller } from "react-hook-form";
-import { BASE_URL } from "@/constants";
-import Button from "@/components/Button";
+import { API_BASE_URL } from "@/constants";
+import {Button} from "@/components";
 
 export default function CreateLocationModal() {
   const { handleSubmit, control } = useForm({
@@ -28,7 +28,7 @@ export default function CreateLocationModal() {
   const onSubmit = async (data: any) => {
     const token = localStorage.getItem("access_token");
 
-    const response = await fetch(`${BASE_URL}/locations`, {
+    const response = await fetch(`${API_BASE_URL}/locations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

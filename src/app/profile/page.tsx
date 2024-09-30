@@ -1,9 +1,7 @@
 "use client";
 
 import {
-  Logo,
   Button,
-  H3,
   Form,
   FormControl,
   FormDescription,
@@ -14,16 +12,18 @@ import {
   Input,
   H2,
 } from "@/components";
-import withoutAuth from "@/hooks/withoutAuth";
-import { ArrowRightFromLine } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import PrivateHeader from "@/components/Headers/PrivateHeader";
 import { API_BASE_URL } from "@/constants";
-import Image from "next/image";
+import withAuth from "@/hooks/withAuth";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
+import { useCallback, useEffect } from "react";
+import { User } from "@/types/User.";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
-function SignIn() {
+function Profile() {
   const router = useRouter();
 
   const formSchema = z.object({
@@ -50,42 +50,104 @@ function SignIn() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    try {
-      if (values.password !== values.confirmPassword) {
-        alert("As senhas não coincidem");
-        return;
-      }
-  
-      const response = await fetch(`${API_BASE_URL}/user`, {
-        method: "POST",
+  const fetchUser = useCallback(
+    async (userId: User["id"], token: string) => {
+      const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(values),
       });
-  
-      const responseData = await response.json();
+      const user = await response.json();
+      if (response.ok && user) {
+        form.reset(user);
+      } else {
+        alert("Erro ao carregar informações do usuário");
+      }
+    },
+    [form],
+  );
+
+  useEffect(() => {
+    console.log("Profile useEffect");
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      const userId = decoded.sub;
+      if (userId) {
+        fetchUser(userId, token);
+      }
+    }
+  }, [fetchUser]);
+
+  const onSubmit = async (data: any) => {
+    const token = localStorage.getItem("access_token");
+    const decoded = jwtDecode(token!);
+    const userId = decoded.sub;
+    if (data.password !== data.confirmPassword) {
+      alert("As senhas não coincidem");
+      return;
+    }
+    let { password, confirmPassword, ...newData } = data;
+    if (data.password) {
+      newData = { ...newData, password };
+    }
+
+    const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newData),
+    });
+
+    const responseData = await response.json();
+    if (response.ok) {
+      alert("Perfil atualizado com sucesso!");
+      router.refresh();
+    } else {
+      const { error, message } = responseData;
+      alert(message);
+    }
+  };
+
+  const onDelete = async () => {
+    const token = localStorage.getItem("access_token");
+    const decoded = jwtDecode(token!);
+    const userId = decoded.sub;
+
+    const confirmation = window.confirm(
+      "Tem certeza que deseja deletar sua conta?",
+    );
+
+    if (confirmation) {
+      const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       if (response.ok) {
-        alert("Usuário criado com sucesso!");
+        alert("Conta deletada com sucesso!");
+        localStorage.removeItem("access_token");
         router.push("/signin");
       } else {
+        const responseData = await response.json();
         const { error, message } = responseData;
         alert(message);
       }
-    } catch (error) {
-      alert(error);
     }
-  }
+  };
 
   return (
-    <main className="flex min-h-screen">
-      <section className="flex flex-col grow min-h-screen bg-zinc-50 justify-center items-center gap-4 p-4">
-        <Logo width={263} height={60} variant="black" />
-        <H2>Crie sua conta</H2>
-        <H3>É super rápido! Vamos começar?</H3>
-
+    <>
+      <PrivateHeader />
+      <main className="flex min-h-screen flex-col items-center gap-20 p-20">
+        <H2>Editar Perfil</H2>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -177,23 +239,15 @@ function SignIn() {
                 </FormItem>
               )}
             />
-            <Button type="submit">
-              <ArrowRightFromLine className="mr-2 h-4 w-4" /> Acessar
-            </Button>
+            <Button type="submit">Atualizar informações</Button>
           </form>
         </Form>
-      </section>
-
-      <section className="flex flex-col grow min-h-screen bg-zinc-50 rounded-3xl justify-center items-center gap-4">
-        <Image
-          src="/couple-select-house.svg"
-          alt="Casal navetando no computador"
-          height={500}
-          width={626}
-        />
-      </section>
-    </main>
+        <Button variant="destructive" onClick={onDelete}>
+          Deletar conta
+        </Button>
+      </main>
+    </>
   );
 }
 
-export default withoutAuth(SignIn);
+export default withAuth(Profile);
