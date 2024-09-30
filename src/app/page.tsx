@@ -9,7 +9,7 @@ import { H1 } from "@/components/Typography/H1";
 import { H2 } from "@/components/Typography/H2";
 import { H3 } from "@/components/Typography/H3";
 import Image from "next/image";
-import { Card, CTAButton } from "@/components/home/styles";
+import { Card, CTAButton, CTAAnchor } from "@/components/home/styles";
 import { P } from "@/components/Typography/P";
 
 function Home() {
@@ -40,6 +40,7 @@ function Home() {
             <H3 color={colors.white}>
               Gerencie contratos, pagamentos e prazos em um só lugar
             </H3>
+            <CTAAnchor href="#contact">Entre em contato</CTAAnchor>
             {/*<CTAButton>Cadastre-se agora</CTAButton>*/}
           </div>
 
@@ -101,66 +102,7 @@ function Home() {
           width={300}
         />
       </Section>
-      <Section bgColor={colors.white} id="how-it-works">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 60,
-          }}
-        >
-          <H1 color={colors.blue}>Como Funciona?</H1>
-          <Card
-            bgColor={colors.white}
-            borderColor={colors.blue}
-            maxWidth={300}
-            gap={24}
-          >
-            <H2 color={colors.blue}>Passo 1</H2>
-            <P color={colors.blue}>Cadastre seus imóveis e locatários.</P>
-          </Card>
-
-          <Card
-            bgColor={colors.white}
-            borderColor={colors.blue}
-            maxWidth={300}
-            gap={24}
-          >
-            <H2 color={colors.blue}>Passo 2</H2>
-            <P color={colors.blue}>
-              Insira dados sobre contratos e pagamentos. e Serviços
-            </P>
-          </Card>
-
-          <Card
-            bgColor={colors.white}
-            borderColor={colors.blue}
-            maxWidth={300}
-            gap={24}
-          >
-            <H2 color={colors.blue}>Passo 3</H2>
-            <P color={colors.blue}>
-              Receba notificações sobre vencimentos e eventos importantes.
-            </P>
-          </Card>
-
-          <Card
-            bgColor={colors.white}
-            borderColor={colors.blue}
-            maxWidth={300}
-            gap={24}
-          >
-            <H2 color={colors.blue}>Passo 4</H2>
-            <P color={colors.blue}>
-              Acompanhe as movimentações financeiras e contratos de forma clara
-              e centralizada.
-            </P>
-          </Card>
-        </div>
-      </Section>
-      <Section bgColor={colors.gray_dark} id="benefits">
+      <Section bgColor={colors.white} id="benefits">
         <Card bgColor={colors.blue} gap={32}>
           <div
             style={{
@@ -203,6 +145,66 @@ function Home() {
           />
         </div>
       </Section>
+      <Section bgColor={colors.gray_dark} id="how-it-works">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 60,
+          }}
+        >
+          <H1 color={colors.white}>Como Funciona?</H1>
+          <Card
+            bgColor={colors.blue}
+            borderColor={colors.blue}
+            maxWidth={300}
+            gap={24}
+          >
+            <H2 color={colors.white}>Passo 1</H2>
+            <P color={colors.white}>Cadastre seus imóveis e locatários.</P>
+          </Card>
+
+          <Card
+            bgColor={colors.blue}
+            borderColor={colors.blue}
+            maxWidth={300}
+            gap={24}
+          >
+            <H2 color={colors.white}>Passo 2</H2>
+            <P color={colors.white}>
+              Insira dados sobre contratos e pagamentos.
+            </P>
+          </Card>
+
+          <Card
+            bgColor={colors.blue}
+            borderColor={colors.blue}
+            maxWidth={300}
+            gap={24}
+          >
+            <H2 color={colors.white}>Passo 3</H2>
+            <P color={colors.white}>
+              Receba notificações sobre vencimentos e eventos importantes.
+            </P>
+          </Card>
+
+          <Card
+            bgColor={colors.blue}
+            borderColor={colors.blue}
+            maxWidth={300}
+            gap={24}
+          >
+            <H2 color={colors.white}>Passo 4</H2>
+            <P color={colors.white}>
+              Acompanhe as movimentações financeiras e contratos de forma clara
+              e centralizada.
+            </P>
+          </Card>
+        </div>
+      </Section>
+
       <Section bgColor={colors.blue} id="contact" minHeight={360}>
         <div
           style={{
