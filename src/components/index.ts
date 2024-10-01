@@ -16,3 +16,12 @@ export {
   FormLabel,
   FormMessage,
 } from "./ui/form";
+export {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog"
+export { ScrollArea } from "./ui/scroll-area"

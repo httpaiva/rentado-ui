@@ -1,24 +1,22 @@
 "use client";
 
 import PrivateHeader from "@/components/Headers/PrivateHeader";
-import withAuth from "@/hooks/withAuth";
+import withoutAuth from "@/hooks/withoutAuth";
 import {
-  ActionButton,
   Cell,
   Column,
-  DialogTrigger,
   Flex,
   Row,
   TableBody,
   TableHeader,
   TableView,
 } from "@adobe/react-spectrum";
-import CreateLocationModal from "./comopnents/CreateLocationModal";
-import EditLocationModal from "./comopnents/EditLocationModal";
+import CreateLocationModal from "./components/CreateLocationModal";
+import EditLocationModal from "./components/EditLocationModal";
 import { useCallback, useEffect, useState } from "react";
 import { API_BASE_URL } from "@/constants";
 import { Location } from "@/types/Location";
-import { H1, P } from "@/components";
+import { Button, H1, P, Dialog, DialogTrigger } from "@/components";
 
 function Locations() {
   const [locations, setLocations] = useState<Location[]>([]);
@@ -54,10 +52,12 @@ function Locations() {
         <Flex height="100%" width="100%" direction="column" gap="size-150">
           <H1>Seus Imóveis</H1>
 
-          <DialogTrigger isDismissable type="modal">
-            <ActionButton>Adicionar novo imóvel</ActionButton>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>Adicionar novo imóvel</Button>
+            </DialogTrigger>
             <CreateLocationModal />
-          </DialogTrigger>
+          </Dialog>
 
           {locations.length === 0 ? (
             <P>Você ainda não possui imóveis</P>
@@ -78,10 +78,12 @@ function Locations() {
                       , {location.country}, {location.postalCode}
                     </Cell>
                     <Cell>
-                      <DialogTrigger isDismissable type="modal">
-                        <ActionButton>Ver imóvel</ActionButton>
+                      <Dialog modal>
+                        <DialogTrigger asChild>
+                          <Button>Ver imóvel</Button>
+                        </DialogTrigger>
                         <EditLocationModal location={location} />
-                      </DialogTrigger>
+                      </Dialog>
                     </Cell>
                   </Row>
                 ))}
@@ -94,4 +96,4 @@ function Locations() {
   );
 }
 
-export default withAuth(Locations);
+export default withoutAuth(Locations);

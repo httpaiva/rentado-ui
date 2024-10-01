@@ -81,17 +81,18 @@ function Profile() {
     }
   }, [fetchUser]);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const token = localStorage.getItem("access_token");
     const decoded = jwtDecode(token!);
     const userId = decoded.sub;
-    if (data.password !== data.confirmPassword) {
+    let newData = {};
+    if (values.password !== values.confirmPassword) {
       alert("As senhas não coincidem");
       return;
     }
-    let { password, confirmPassword, ...newData } = data;
-    if (data.password) {
-      newData = { ...newData, password };
+    let { password, confirmPassword, ...rest } = values;
+    if (values.password) {
+      newData = { ...rest, password };
     }
 
     const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
