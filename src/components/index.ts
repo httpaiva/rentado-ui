@@ -25,3 +25,12 @@ export {
   DialogTrigger,
 } from "./ui/dialog"
 export { ScrollArea } from "./ui/scroll-area"
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table"

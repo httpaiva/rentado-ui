@@ -96,7 +96,7 @@ function SignIn() {
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>E-mail</FormLabel>
+                  <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input placeholder="Insira seu primeiro nome" {...field} />
                   </FormControl>

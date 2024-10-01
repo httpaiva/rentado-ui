@@ -30,8 +30,8 @@ const formSchema = z.object({
   city: z.string().min(1, { message: "This field has to be filled." }),
   neighborhood: z.string().min(1, { message: "This field has to be filled." }),
   street: z.string().min(1, { message: "This field has to be filled." }),
-  number: z.number().min(1, { message: "This field has to be filled." }),
-  postalCode: z.number().min(1, { message: "This field has to be filled." }),
+  number: z.string().min(1, { message: "This field has to be filled." }),
+  postalCode: z.string().min(1, { message: "This field has to be filled." }),
   complement: z.string().optional(),
 });
 
@@ -45,8 +45,8 @@ export default function CreateLocationModal({ location }: Props) {
       city: "",
       neighborhood: "",
       street: "",
-      number: 0,
-      postalCode: 0,
+      number: "",
+      postalCode: "",
       complement: "",
     },
   });
