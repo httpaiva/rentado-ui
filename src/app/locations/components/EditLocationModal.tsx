@@ -39,15 +39,15 @@ export default function CreateLocationModal({ location }: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      country: "",
-      state: "",
-      city: "",
-      neighborhood: "",
-      street: "",
-      number: "",
-      postalCode: "",
-      complement: "",
+      name: location.name,
+      country: location.country,
+      state: location.state,
+      city: location.city,
+      neighborhood: location.neighborhood,
+      street: location.street,
+      number: location.number,
+      postalCode: location.postalCode,
+      complement: location.complement,
     },
   });
 
@@ -244,7 +244,7 @@ export default function CreateLocationModal({ location }: Props) {
               )}
             />
 
-            <Button type="submit">Criar imóvel</Button>
+            <Button type="submit">Editar imóvel</Button>
           </form>
         </Form>
 
