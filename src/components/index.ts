@@ -34,3 +34,17 @@ export {
   TableHeader,
   TableRow,
 } from "./ui/table"
+export {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "./ui/navigation-menu"
+export { NavigationSidebar } from './NavigationSidebar';
+export { PageWithSidebar } from './Wrappers/PageWithSidebar';
+export { PageWithHeaderAndSidebar } from './Wrappers/PageWithHeaderAndSidebar';
+export { PrivateHeader } from './PrivateHeader'

@@ -11,8 +11,8 @@ import {
   FormMessage,
   Input,
   H2,
+  PageWithHeaderAndSidebar,
 } from "@/components";
-import PrivateHeader from "@/components/Headers/PrivateHeader";
 import { API_BASE_URL } from "@/constants";
 import withAuth from "@/hooks/withAuth";
 import { useRouter } from "next/navigation";
@@ -145,8 +145,7 @@ function Profile() {
   };
 
   return (
-    <>
-      <PrivateHeader />
+    <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
         <H2>Editar Perfil</H2>
         <Form {...form}>
@@ -247,7 +246,7 @@ function Profile() {
           Deletar conta
         </Button>
       </main>
-    </>
+    </PageWithHeaderAndSidebar>
   );
 }
 

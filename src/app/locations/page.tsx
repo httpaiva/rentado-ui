@@ -1,6 +1,5 @@
 "use client";
 
-import PrivateHeader from "@/components/Headers/PrivateHeader";
 import withAuth from "@/hooks/withAuth";
 import CreateLocationModal from "./components/CreateLocationModal";
 import EditLocationModal from "./components/EditLocationModal";
@@ -19,6 +18,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  PageWithHeaderAndSidebar,
 } from "@/components";
 
 function Locations() {
@@ -49,8 +49,7 @@ function Locations() {
   }, [fetchLocations]);
 
   return (
-    <>
-      <PrivateHeader />
+    <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
         <H1>Seus Imóveis</H1>
 
@@ -95,7 +94,7 @@ function Locations() {
           </Table>
         )}
       </main>
-    </>
+    </PageWithHeaderAndSidebar>
   );
 }
 
