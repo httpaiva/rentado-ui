@@ -16,10 +16,19 @@ export const NavigationSidebar = () => {
       className="bg-zinc-100 w-48 items-start pt-[80px]"
     >
       <NavigationMenuList className="flex flex-col items-start space-x-0 w-48">
+
         <NavigationMenuItem className="w-48">
           <Link href="/locations" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Imóveis
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem className="w-48">
+          <Link href="/renters" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Locatários
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
@@ -31,6 +40,7 @@ export const NavigationSidebar = () => {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+
       </NavigationMenuList>
     </NavigationMenu>
   );
