@@ -65,7 +65,7 @@ export default function CreateLocationModal({ location }: Props) {
 
     const responseData = await response.json();
     if (response.ok) {
-      alert("Imóvel cadastrado com sucesso!");
+      alert("Imóvel atualizado com sucesso!");
       window.location.reload();
     } else {
       const { error, message } = responseData;
