@@ -78,7 +78,7 @@ function Renters() {
                   <TableCell>
                     <Dialog modal>
                       <DialogTrigger asChild>
-                        <Button>Ver imóvel</Button>
+                        <Button>Ver locatário</Button>
                       </DialogTrigger>
                       <EditRenterModal renter={renter} />
                     </Dialog>

@@ -1,8 +1,8 @@
 "use client";
 
 import withAuth from "@/hooks/withAuth";
-import CreateLocationModal from "./components/CreateLocationModal";
-import EditLocationModal from "./components/EditLocationModal";
+import { CreateLocationModal } from "./components/CreateLocationModal";
+import { EditLocationModal } from "./components/EditLocationModal";
 import { useCallback, useEffect, useState } from "react";
 import { API_BASE_URL } from "@/constants";
 import { Location } from "@/types/Location";
