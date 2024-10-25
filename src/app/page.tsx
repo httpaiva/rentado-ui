@@ -11,12 +11,15 @@ import { H3 } from "@/components/home/Typography/H3";
 import Image from "next/image";
 import { Card, CTAButton, CTAAnchor } from "@/components/home/styles";
 import { P } from "@/components/home/Typography/P";
+import { useRouter } from "next/navigation";
 
 function Home() {
+  const router = useRouter();
+
   return (
     <main>
       <PublicHeader />
-      <Section bgColor={colors.blue} id="start" >
+      <Section bgColor={colors.blue} id="start">
         <div
           style={{
             display: "flex",
@@ -40,8 +43,14 @@ function Home() {
             <H3 color={colors.white}>
               Gerencie contratos, pagamentos e prazos em um só lugar
             </H3>
-            <CTAAnchor href="#contact">Entre em contato</CTAAnchor>
-            {/*<CTAButton>Cadastre-se agora</CTAButton>*/}
+            {/* <CTAAnchor href="#contact">Entre em contato</CTAAnchor> */}
+            <CTAButton
+              onClick={() => {
+                router.push("/signup");
+              }}
+            >
+              Cadastre-se agora
+            </CTAButton>
           </div>
 
           <Image
