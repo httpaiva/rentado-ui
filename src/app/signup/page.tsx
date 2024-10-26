@@ -51,7 +51,6 @@ function SignIn() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     try {
       if (values.password !== values.confirmPassword) {
         alert("As senhas não coincidem");

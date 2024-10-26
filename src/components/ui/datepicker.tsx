@@ -13,7 +13,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { FormControl } from "./form";
 
 export function DatePicker({
   field,
@@ -25,7 +24,7 @@ export function DatePicker({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <FormControl>
+        {/* <FormControl> */}
           <Button
             variant={"outline"}
             className={cn(
@@ -40,7 +39,7 @@ export function DatePicker({
             )}
             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
           </Button>
-        </FormControl>
+        {/* </FormControl> */}
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar

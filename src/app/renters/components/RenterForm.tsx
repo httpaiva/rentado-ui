@@ -109,12 +109,12 @@ export const RenterForm = ({
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Data de Nascimento</FormLabel>
-              {/* <FormControl> */}
-              <DatePicker
-                field={field}
-                placeholder="Insira a Data de Nascimento"
-              />
-              {/* </FormControl> */}
+              <FormControl>
+                <DatePicker
+                  field={field}
+                  placeholder="Insira a Data de Nascimento"
+                />
+              </FormControl>
               <FormDescription>Insira uma Data de Nascimento</FormDescription>
               <FormMessage />
             </FormItem>

@@ -24,7 +24,7 @@ import {
 function Locations() {
   const [locations, setLocations] = useState<Location[]>([]);
 
-  const fetchLocations = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     const token = localStorage.getItem("access_token");
     const response = await fetch(`${API_BASE_URL}/locations`, {
       method: "GET",
@@ -34,7 +34,6 @@ function Locations() {
       },
     });
     const responseData = await response.json();
-    console.log({ responseData });
     if (response.ok && responseData) {
       setLocations(responseData);
     } else {
@@ -45,15 +44,15 @@ function Locations() {
   useEffect(() => {
     console.log("Locations useEffect");
 
-    fetchLocations();
-  }, [fetchLocations]);
+    fetchData();
+  }, [fetchData]);
 
   return (
     <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
         <H1>Seus Imóveis</H1>
 
-        <Dialog>
+        <Dialog modal={false}>
           <DialogTrigger asChild>
             <Button>Adicionar novo imóvel</Button>
           </DialogTrigger>

@@ -45,7 +45,6 @@ function SignIn() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     try {
       const response = await fetch(`${API_BASE_URL}/auth/signin`, {
         method: "POST",

@@ -24,7 +24,7 @@ import {
 function Renters() {
   const [renters, setRenters] = useState<Renter[]>([]);
 
-  const fetchLocations = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     const token = localStorage.getItem("access_token");
     const response = await fetch(`${API_BASE_URL}/renters`, {
       method: "GET",
@@ -37,22 +37,22 @@ function Renters() {
     if (response.ok && responseData) {
       setRenters(responseData);
     } else {
-      alert("Erro ao carregar Imóveis");
+      alert("Erro ao carregar Locatários");
     }
   }, []);
 
   useEffect(() => {
     console.log("Renters useEffect");
 
-    fetchLocations();
-  }, [fetchLocations]);
+    fetchData();
+  }, [fetchData]);
 
   return (
     <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
         <H1>Seus Locatários</H1>
 
-        <Dialog>
+        <Dialog modal={false}>
           <DialogTrigger asChild>
             <Button>Adicionar novo locatário</Button>
           </DialogTrigger>

@@ -16,7 +16,7 @@ const formSchema = z.object({
   document_cpf: z.string().min(1, { message: "This field has to be filled." }),
   document_rg: z.string().min(1, { message: "This field has to be filled." }),
   nationality: z.string().optional(),
-  birthDate: z.string().optional(),
+  birthDate: z.coerce.date().optional(),
   maritalStatus: z.string().optional(),
   ocupation: z.string().optional(),
 });

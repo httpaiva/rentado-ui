@@ -34,6 +34,14 @@ export const NavigationSidebar = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem className="w-48">
+          <Link href="/rents" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Aluguéis
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem className="w-48">
           <Link href="/profile" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Perfil

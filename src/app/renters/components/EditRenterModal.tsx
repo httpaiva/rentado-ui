@@ -22,7 +22,7 @@ const formSchema = z.object({
   document_cpf: z.string().min(1, { message: "This field has to be filled." }),
   document_rg: z.string().min(1, { message: "This field has to be filled." }),
   nationality: z.string().optional(),
-  birthDate: z.string().optional(),
+  birthDate: z.coerce.date().optional(),
   maritalStatus: z.string().optional(),
   ocupation: z.string().optional(),
 });
@@ -44,7 +44,6 @@ export const EditRenterModal = ({ renter }: Props) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const token = localStorage.getItem("access_token");
-    console.log({ values });
 
     const response = await fetch(`${API_BASE_URL}/renters/${renter.id}`, {
       method: "PATCH",
@@ -96,7 +95,7 @@ export const EditRenterModal = ({ renter }: Props) => {
     <DialogContent>
       <ScrollArea className="max-h-[80vh] p-6">
         <DialogHeader>
-          <DialogTitle>Editar Imóvel</DialogTitle>
+          <DialogTitle>Editar Locatário</DialogTitle>
         </DialogHeader>
         <RenterForm
           form={form}
