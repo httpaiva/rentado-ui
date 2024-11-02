@@ -54,4 +54,16 @@ export const StyledEditable = styled(Editable)`
   line-height: 1.5; /* Espaçamento entre linhas */
   outline: none; /* Remove a borda azul padrão ao focar */
   overflow: hidden; /* Evita rolagem indesejada dentro do elemento */
+
+  h1 {
+    font-size: 30px; /* ou qualquer tamanho que você deseje */
+    font-weight: bold; /* Negrito para o H1 */
+    margin: 0.67em 0; /* Margens padrão para H1 */
+  }
+
+  h2 {
+    font-size: 20px; /* ou qualquer tamanho que você deseje */
+    font-weight: bold; /* Negrito para o H1 */
+    margin: 0.67em 0; /* Margens padrão para H1 */
+  }
 `;

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { createEditor, Descendant, Editor } from "slate";
+import { createEditor, Descendant } from "slate";
 import { Slate, withReact } from "slate-react";
 import { EditableContainer, EditorContainer, StyledEditable } from "./styles";
 import { EditorType } from "./types";
 import { Toolbar } from "./components/Toolbar";
 import { renderLeaf } from "./utils/renderLeaf";
 import { Button } from "../ui/button";
+import { renderElement } from "./utils/renderElement";
 
 type CustomElement = { type: "paragraph"; children: CustomText[] };
 type CustomText = { text: string };
@@ -35,18 +36,21 @@ export const DocumentEditor = () => {
 
   return (
     <EditorContainer>
-      <Toolbar editor={editor} />
-      <EditableContainer>
-        <Slate editor={editor} initialValue={initialValue as any}>
+      <Slate editor={editor} initialValue={initialValue as any}>
+        <Toolbar />
+        <EditableContainer>
           <StyledEditable
             placeholder="Start typing your document..."
             autoFocus
             //@ts-expect-error
             renderLeaf={renderLeaf}
+            renderElement={renderElement}
           />
-        </Slate>
-      </EditableContainer>
+        </EditableContainer>
+        <div className="w-full flex justify-center align-center mt-2">
           <Button onClick={getEditorValue}>Salvar</Button>
+        </div>
+      </Slate>
     </EditorContainer>
   );
 };
