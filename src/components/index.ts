@@ -24,6 +24,7 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog"
+export { DocumentEditor } from "./DocumentEditor";
 export { ScrollArea } from "./ui/scroll-area"
 export {
   Table,
