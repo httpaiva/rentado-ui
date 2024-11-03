@@ -46,24 +46,25 @@ export const DocumentEditor = ({
 
   return (
     <EditorContainer>
-      <Slate
-        editor={editor}
-        initialValue={value || initialValue}
-        onChange={(newValue) => {
-          onChange?.(newValue);
-        }}
-      >
-        {!isReadOnly && <Toolbar />}
-        <EditableContainer>
-          <StyledEditable
-            placeholder="Start typing your document..."
-            //@ts-expect-error
-            renderLeaf={renderLeaf}
-            renderElement={renderElement}
-            readOnly={isReadOnly}
-          />
-        </EditableContainer>
-      </Slate>
+        <Slate
+          editor={editor}
+          initialValue={value || initialValue}
+          onChange={(newValue) => {
+            onChange?.(newValue);
+          }}
+        >
+          {!isReadOnly && <Toolbar />}
+          <EditableContainer>
+            <StyledEditable
+              placeholder="Start typing your document..."
+              //@ts-expect-error
+              renderLeaf={renderLeaf}
+              renderElement={renderElement}
+              readOnly={isReadOnly}
+              id="document-editor"
+            />
+          </EditableContainer>
+        </Slate>
     </EditorContainer>
   );
 };

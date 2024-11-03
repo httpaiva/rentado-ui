@@ -7,6 +7,8 @@ import { H2, PageWithHeaderAndSidebar } from "@/components";
 import { useCallback, useEffect, useState } from "react";
 import { API_BASE_URL } from "@/constants";
 import { useParams } from "next/navigation";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 function PreviewTemplate() {
   const params = useParams<{ id: string }>();
@@ -54,7 +56,25 @@ function PreviewTemplate() {
   };
 
   const handleDocumentSubmit = async (values: any) => {
-    console.log({ values });
+    const getTargetElement = () => document.getElementById("document-editor");
+    const element = getTargetElement();
+    if (element) {
+      html2canvas(element, { scale: 2 }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        // Defina as dimensões da imagem no PDF
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        // Adicione a imagem capturada ao PDF
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+        // Salve o PDF com um nome
+        pdf.save(values.title);
+      });
+    }
   };
 
   return (
