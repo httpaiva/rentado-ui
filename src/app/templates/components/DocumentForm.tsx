@@ -19,7 +19,7 @@ import { Template } from "@/types/Template";
 
 type Props = {
   template?: Template;
-  onSubmit: (values: z.infer<typeof templateSchema>) => Promise<void>;
+  onSubmit?: (values: z.infer<typeof templateSchema>) => Promise<void>;
   buttonText?: string;
 };
 

@@ -22,11 +22,13 @@ import {
 } from "@/components";
 import { Location } from "@/types/Location";
 import { Renter } from "@/types/Renter";
+import { useRouter } from "next/navigation";
 
 function Rents() {
   const [rents, setRents] = useState<Rent[]>([]);
   const [locations, setLocations] = useState<Location[]>([]);
   const [renters, setRenters] = useState<Renter[]>([]);
+  const router = useRouter()
 
   const fetchData = useCallback(async () => {
     const token = localStorage.getItem("access_token");
@@ -105,6 +107,7 @@ function Rents() {
                 <TableHead>Imóvel</TableHead>
                 <TableHead>Locatário</TableHead>
                 <TableHead>Ação</TableHead>
+                <TableHead>Ação</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -123,6 +126,11 @@ function Rents() {
                         renters={renters}
                       />
                     </Dialog>
+                  </TableCell>
+                  <TableCell>
+                    <Button onClick={()=>{
+                      router.push(`/rents/${rent.id}/template`)
+                    }}>Gerar documento</Button>
                   </TableCell>
                 </TableRow>
               ))}
