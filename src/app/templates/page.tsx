@@ -23,7 +23,7 @@ function Templates() {
 
   const fetchData = useCallback(async () => {
     const token = localStorage.getItem("access_token");
-    const response = await fetch(`${API_BASE_URL}/templates`, {
+    const response = await fetch(`${API_BASE_URL}/template`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -45,6 +45,35 @@ function Templates() {
   }, [fetchData]);
 
   const router = useRouter();
+
+  const onDelete = async (template: Template) => {
+    const token = localStorage.getItem("access_token");
+
+    const confirmation = window.confirm(
+      "Tem certeza que deseja deletar esse template?",
+    );
+
+    if (confirmation) {
+      const response = await fetch(`${API_BASE_URL}/template/${template.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        alert("Template deletado com sucesso!");
+        setTemplates((prevTemplates) =>
+          prevTemplates.filter((t) => t.id !== template.id),
+        );
+      } else {
+        const responseData = await response.json();
+        const { error, message } = responseData;
+        alert(message);
+      }
+    }
+  };
 
   return (
     <PageWithHeaderAndSidebar>
@@ -84,7 +113,14 @@ function Templates() {
                     </Button>
                   </TableCell>
                   <TableCell>
-                    <Button>Deletar template</Button>
+                    <Button
+                      variant="destructive"
+                      onClick={() => {
+                        onDelete(template);
+                      }}
+                    >
+                      Deletar template
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

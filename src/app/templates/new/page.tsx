@@ -6,29 +6,35 @@ import { templateSchema } from "../schema";
 import { z } from "zod";
 import { Template } from "@/types/Template";
 import { H2, PageWithHeaderAndSidebar } from "@/components";
+import { API_BASE_URL } from "@/constants";
+import { useRouter } from "next/navigation";
 
 function NewTemplate() {
+  const router = useRouter();
   const onSubmit = async (values: z.infer<typeof templateSchema>) => {
     const token = localStorage.getItem("access_token");
-    console.log({ values });
+    const newValues = {
+      ...values,
+      content: JSON.stringify(values.content),
+    }
 
-    // const response = await fetch(`${API_BASE_URL}/rents/${rent.id}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    //   body: JSON.stringify(values),
-    // });
+    const response = await fetch(`${API_BASE_URL}/template`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newValues),
+    });
 
-    // const responseData = await response.json();
-    // if (response.ok) {
-    //   alert("Aluguél atualizado com sucesso!");
-    //   window.location.reload();
-    // } else {
-    //   const { _error, message } = responseData;
-    //   alert(message);
-    // }
+    const responseData = await response.json();
+    if (response.ok) {
+      alert("Template criado com sucesso!");
+      router.push("/templates");
+    } else {
+      const { _error, message } = responseData;
+      alert(message);
+    }
   };
 
   const template: Template = {
