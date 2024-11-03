@@ -27,6 +27,7 @@ export const ToolbarButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  text-align: start;
 
   &:hover {
     background-color: #c7d2fe;

@@ -32,7 +32,7 @@ export const InsertDynamicField = ({ editor }: { editor: EditorType }) => {
       <PopoverTrigger asChild>
         <ToolbarButton>Inserir Campo Dinâmico</ToolbarButton>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent className="h-[300px] overflow-y-auto">
         <div style={{ padding: "10px" }}>
           {dynamicFieldsMap.map((field) => (
             <ToolbarButton
