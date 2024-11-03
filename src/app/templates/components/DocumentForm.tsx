@@ -21,12 +21,14 @@ type Props = {
   template?: Template;
   onSubmit?: (values: z.infer<typeof templateSchema>) => Promise<void>;
   buttonText?: string;
+  isReadOnly?: boolean;
 };
 
 export const DocumentForm = ({
   onSubmit,
   buttonText = "Salvar",
   template,
+  isReadOnly = false,
 }: Props) => {
   const form = useForm<z.infer<typeof templateSchema>>({
     resolver: zodResolver(templateSchema),
@@ -35,6 +37,7 @@ export const DocumentForm = ({
       content: template?.content,
     },
   });
+  const shouldShowSubmitButton = !isReadOnly && onSubmit;
 
   return (
     <Form {...form}>
@@ -42,7 +45,7 @@ export const DocumentForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8 flex flex-col w-[900px]"
       >
-        <Button type="submit">{buttonText}</Button>
+        {shouldShowSubmitButton && <Button type="submit">{buttonText}</Button>}
         <FormField
           control={form.control}
           name="title"
@@ -50,7 +53,7 @@ export const DocumentForm = ({
             <FormItem className="flex flex-col">
               <FormLabel>Titulo</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Insira o titulo do documento" />
+                <Input {...field} placeholder="Insira o titulo do documento" disabled={isReadOnly} />
               </FormControl>
               <FormDescription>Insira o titulo do documento</FormDescription>
               <FormMessage />
@@ -65,7 +68,7 @@ export const DocumentForm = ({
             <FormItem className="flex flex-col">
               <FormLabel>Conteudo</FormLabel>
               <FormControl>
-                <DocumentEditor {...field} />
+                <DocumentEditor {...field} isReadOnly={isReadOnly} />
               </FormControl>
               <FormMessage />
             </FormItem>

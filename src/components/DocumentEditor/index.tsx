@@ -12,6 +12,7 @@ type CustomText = { text: string };
 type DocumentEditorProps = {
   value?: Descendant[];
   onChange?: (value: Descendant[]) => void;
+  isReadOnly?: boolean;
 };
 
 declare module "slate" {
@@ -29,7 +30,11 @@ const initialValue: Descendant[] = [
   },
 ];
 
-export const DocumentEditor = ({ value, onChange }: DocumentEditorProps) => {
+export const DocumentEditor = ({
+  value,
+  onChange,
+  isReadOnly = false,
+}: DocumentEditorProps) => {
   const [editor] = useState(() => withReact(createEditor()));
 
   const { isInline } = editor;
@@ -48,13 +53,14 @@ export const DocumentEditor = ({ value, onChange }: DocumentEditorProps) => {
           onChange?.(newValue);
         }}
       >
-        <Toolbar />
+        {!isReadOnly && <Toolbar />}
         <EditableContainer>
           <StyledEditable
             placeholder="Start typing your document..."
             //@ts-expect-error
             renderLeaf={renderLeaf}
             renderElement={renderElement}
+            readOnly={isReadOnly}
           />
         </EditableContainer>
       </Slate>

@@ -2,17 +2,14 @@
 
 import withAuth from "@/hooks/withAuth";
 import { DocumentForm } from "../../components/DocumentForm";
-import { templateSchema } from "../../schema";
-import { z } from "zod";
 import { Template } from "@/types/Template";
 import { H2, PageWithHeaderAndSidebar } from "@/components";
 import { useCallback, useEffect, useState } from "react";
 import { API_BASE_URL } from "@/constants";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 function PreviewTemplate() {
   const params = useParams<{ id: string }>();
-  const router = useRouter();
   const [template, setTemplate] = useState<Template>();
 
   console.log({template: JSON.stringify(template?.content)});
@@ -64,6 +61,7 @@ function PreviewTemplate() {
           {template && (
             <DocumentForm
               template={template || emptyTemplate}
+              isReadOnly
             />
           )}
         </div>
