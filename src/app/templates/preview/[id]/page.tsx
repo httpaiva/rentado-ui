@@ -12,20 +12,20 @@ function PreviewTemplate() {
   const params = useParams<{ id: string }>();
   const [template, setTemplate] = useState<Template>();
 
-  console.log({template: JSON.stringify(template?.content)});
-
   const fetchData = useCallback(async () => {
     if (!template) {
       const token = localStorage.getItem("access_token");
-      const response = await fetch(`${API_BASE_URL}/template/translate/${params.id}?rent_id=1`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${API_BASE_URL}/template/translate/${params.id}?rent_id=1`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       const responseData = await response.json();
-      console.log({responseData})
       if (response.ok && responseData) {
         if (responseData.content) {
           responseData.content = JSON.parse(responseData.content);
@@ -53,6 +53,10 @@ function PreviewTemplate() {
     ],
   };
 
+  const handleDocumentSubmit = async (values: any) => {
+    console.log({ values });
+  };
+
   return (
     <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
@@ -62,6 +66,8 @@ function PreviewTemplate() {
             <DocumentForm
               template={template || emptyTemplate}
               isReadOnly
+              buttonText="Baixar documento"
+              onSubmit={handleDocumentSubmit}
             />
           )}
         </div>

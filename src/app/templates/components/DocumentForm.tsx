@@ -37,7 +37,7 @@ export const DocumentForm = ({
       content: template?.content,
     },
   });
-  const shouldShowSubmitButton = !isReadOnly && onSubmit;
+  const shouldShowSubmitButton = onSubmit;
 
   return (
     <Form {...form}>
