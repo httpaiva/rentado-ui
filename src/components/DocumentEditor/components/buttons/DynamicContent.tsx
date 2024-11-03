@@ -7,17 +7,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { dynamicFieldsMap } from "@/constants/dynamicFieldsMap";
 
 type Field = {
   name: string;
   value: string;
 };
-
-const fields = [
-  { name: "Nome do Usuário", value: "nome_usuario" },
-  { name: "Email", value: "email" },
-  { name: "Data de Nascimento", value: "data_nascimento" },
-];
 
 export const InsertDynamicField = ({ editor }: { editor: EditorType }) => {
   const insertField = (field: Field) => {
@@ -39,7 +34,7 @@ export const InsertDynamicField = ({ editor }: { editor: EditorType }) => {
       </PopoverTrigger>
       <PopoverContent>
         <div style={{ padding: "10px" }}>
-          {fields.map((field) => (
+          {dynamicFieldsMap.map((field) => (
             <ToolbarButton
               key={field.value}
               onClick={() => insertField(field)}

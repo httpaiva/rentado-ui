@@ -5,7 +5,6 @@ import styled from "styled-components";
 export const EditorContainer = styled.div`
   padding: 20px;
   max-width: 900px;
-  margin: 20px auto;
   border-radius: 8px;
   background-color: #f3f4f6;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);

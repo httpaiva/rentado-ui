@@ -1,0 +1,36 @@
+export const dynamicFieldsMap = [
+    // Locador
+    { name: "Usuário: E-mail", value: "user_email" },
+    { name: "Usuário: Nome", value: "user_firstName" },
+    { name: "Usuário: Sobrenome", value: "user_lastName" },
+    { name: "Usuário: CPF", value: "user_document_cpf" },
+    { name: "Usuário: RG", value: "user_document_rg" },
+    { name: "Usuário: Nacionalidade", value: "user_nationality" },
+    { name: "Usuário: Data de Nascimento", value: "user_birthDate" },
+    { name: "Usuário: Estado Civil", value: "user_maritalStatus" },
+    { name: "Usuário: Ocupação", value: "user_ocupation" },
+    // Locatário
+    { name: "Locatário: Nome", value: "renter_firstName" },
+    { name: "Locatário: Sobrenome", value: "renter_lastName" },
+    { name: "Locatário: CPF", value: "renter_document_cpf" },
+    { name: "Locatário: RG", value: "renter_document_rg" },
+    { name: "Locatário: Nacionalidade", value: "renter_nationality" },
+    { name: "Locatário: Data de Nascimento", value: "renter_birthDate" },
+    { name: "Locatário: Estado Civil", value: "renter_maritalStatus" },
+    { name: "Locatário: Ocupação", value: "renter_ocupation" },
+    // Aluguel
+    { name: "Aluguel: Data de Inicio", value: "rent_initialDate" },
+    { name: "Aluguel: Data de Fim", value: "rent_endDate" },
+    { name: "Aluguel: Data de Pagamento", value: "rent_paymentDate" },
+    { name: "Aluguel: Preço", value: "rent_price" },
+    // Imóvel
+    { name: "Imóvel: Nome", value: "location_name" },
+    { name: "Imóvel: País", value: "location_country" },
+    { name: "Imóvel: Estado", value: "location_state" },
+    { name: "Imóvel: Cidade", value: "location_city" },
+    { name: "Imóvel: Bairro", value: "location_neighboorhod" },
+    { name: "Imóvel: Rua", value: "location_street" },
+    { name: "Imóvel: Número", value: "location_number" },
+    { name: "Imóvel: Complemento", value: "location_complement" },
+    { name: "Imóvel: CEP", value: "location_postalCode" },
+  ];
