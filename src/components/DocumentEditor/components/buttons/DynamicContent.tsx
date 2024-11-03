@@ -21,10 +21,11 @@ export const InsertDynamicField = ({ editor }: { editor: EditorType }) => {
       name: field.name,
       value: field.value,
       fieldName: field.name,
-      children: [{ text: `{{${field.value}}}` }],
+      children: [{ text: `${field.name}` }],
     };
     //@ts-expect-error
     Transforms.insertNodes(editor, fieldNode);
+    Transforms.insertText(editor, " ");
   };
 
   return (

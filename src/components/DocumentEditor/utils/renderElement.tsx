@@ -23,8 +23,10 @@ export const renderElement = (props: any) => {
             padding: "2px 4px",
             color: "#333",
           }}
+          {...props.attributes}
+          // contentEditable={false}
         >
-          {element.fieldName}
+          {props.children}
         </span>
       );
     case "paragraph":

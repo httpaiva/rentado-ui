@@ -32,6 +32,13 @@ const initialValue: Descendant[] = [
 export const DocumentEditor = ({ value, onChange }: DocumentEditorProps) => {
   const [editor] = useState(() => withReact(createEditor()));
 
+  const { isInline } = editor;
+
+  editor.isInline = (element) => {
+    // @ts-expect-error
+    return element.type === "dynamicField" ? true : isInline(element);
+  };
+
   return (
     <EditorContainer>
       <Slate
@@ -45,7 +52,6 @@ export const DocumentEditor = ({ value, onChange }: DocumentEditorProps) => {
         <EditableContainer>
           <StyledEditable
             placeholder="Start typing your document..."
-            autoFocus
             //@ts-expect-error
             renderLeaf={renderLeaf}
             renderElement={renderElement}
