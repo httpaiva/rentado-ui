@@ -4,7 +4,6 @@ import {
   Button,
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,6 +21,7 @@ import { useCallback, useEffect } from "react";
 import { User } from "@/types/User.";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { DatePicker } from "@/components/ui/datepicker";
 
 function Profile() {
   const router = useRouter();
@@ -37,6 +37,25 @@ function Profile() {
     confirmPassword: z
       .string()
       .min(1, { message: "This field has to be filled." }),
+
+    // Informações adicionais
+    document_cpf: z.preprocess((val) => val ?? "", z.string().optional()),
+    document_rg: z.preprocess((val) => val ?? "", z.string().optional()),
+    nationality: z.preprocess((val) => val ?? "", z.string().optional()),
+    birthDate: z.preprocess(
+      (val: any) => (val ? new Date(val) : null),
+      z.coerce.date().nullable(),
+    ),
+    maritalStatus: z.preprocess((val) => val ?? "", z.string().optional()),
+    ocupation: z.preprocess((val) => val ?? "", z.string().optional()),
+    country: z.preprocess((val) => val ?? "", z.string().optional()),
+    state: z.preprocess((val) => val ?? "", z.string().optional()),
+    city: z.preprocess((val) => val ?? "", z.string().optional()),
+    neighborhood: z.preprocess((val) => val ?? "", z.string().optional()),
+    street: z.preprocess((val) => val ?? "", z.string().optional()),
+    number: z.preprocess((val) => val ?? "", z.string().optional()),
+    complement: z.preprocess((val) => val ?? "", z.string().optional()),
+    postalCode: z.preprocess((val) => val ?? "", z.string().optional()),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -47,6 +66,20 @@ function Profile() {
       email: "",
       password: "",
       confirmPassword: "",
+      document_cpf: "",
+      document_rg: "",
+      nationality: "",
+      birthDate: new Date(),
+      maritalStatus: "",
+      ocupation: "",
+      country: "",
+      state: "",
+      city: "",
+      neighborhood: "",
+      street: "",
+      number: "",
+      complement: "",
+      postalCode: "",
     },
   });
 
@@ -146,100 +179,317 @@ function Profile() {
 
   return (
     <PageWithHeaderAndSidebar>
-      <main className="flex min-h-screen flex-col items-center gap-20 p-20">
+      <main className="flex min-h-screen flex-col items-center gap-8 p-20">
         <H2>Editar Perfil</H2>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 flex flex-col justify-center items-center"
+            className="space-y-8 w-full max-w-4xl"
           >
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>E-mail</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Insira seu primeiro nome" {...field} />
-                  </FormControl>
-                  <FormDescription>Insira seu primeiro nome</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <section>
+              <H2>Informações Básicas</H2>
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="firstName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Primeiro Nome</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Insira seu primeiro nome"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Sobrenome</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira seu sobrenome" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>E-mail</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Insira seu e-mail"
+                          type="email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Senha</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Insira sua senha"
+                          type="password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirmar Senha</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Confirme sua senha"
+                          type="password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </section>
 
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Sobrenome</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Insira seu sobrenome" {...field} />
-                  </FormControl>
-                  <FormDescription>Insira seu sobrenome</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <section>
+              <H2>Informações Adicionais</H2>
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="document_cpf"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>CPF</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira seu CPF" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>E-mail</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Insira seu e-mail"
-                      type="email"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>Insira seu e-mail</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                <FormField
+                  control={form.control}
+                  name="document_rg"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>RG</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira seu RG" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Senha</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Insira sua senha"
-                      type="password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>Insira sua senha</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                <FormField
+                  control={form.control}
+                  name="nationality"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nacionalidade</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Insira sua nacionalidade"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirmar senha</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Insira sua senha"
-                      type="password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>Confirme sua senha</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Atualizar informações</Button>
+                <FormField
+                  control={form.control}
+                  name="birthDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col py-3">
+                      <FormLabel>Data de Nascimento</FormLabel>
+                      <FormControl>
+                        <DatePicker
+                          field={field}
+                          placeholder="Insira a Data de Nascimento"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="maritalStatus"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Estado Civil</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Insira seu estado civil"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="ocupation"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Ocupação</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira sua ocupação" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </section>
+
+            <section>
+              <H2>Endereço</H2>
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="country"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>País</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira seu país" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="state"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Estado</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira seu estado" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Cidade</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira sua cidade" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="neighborhood"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Bairro</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira seu bairro" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="street"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Rua</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira sua rua" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="number"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Número</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira o número" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="complement"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Complemento</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira um complemento" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="postalCode"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>CEP</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Insira seu CEP" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </section>
+
+            <div className="flex justify-center w-full">
+              <Button type="submit">Atualizar informações</Button>
+            </div>
           </form>
         </Form>
         <Button variant="destructive" onClick={onDelete}>

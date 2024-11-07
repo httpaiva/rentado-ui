@@ -28,7 +28,7 @@ export function DatePicker({
           <Button
             variant={"outline"}
             className={cn(
-              "w-[240px] pl-3 text-left font-normal",
+              "w-full text-left font-normal",
               !field.value && "text-muted-foreground",
             )}
           >
@@ -37,7 +37,7 @@ export function DatePicker({
             ) : (
               <span>{placeholder}</span>
             )}
-            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+            <CalendarIcon className="ml-auto h-3 w-4 opacity-50" />
           </Button>
         {/* </FormControl> */}
       </PopoverTrigger>
