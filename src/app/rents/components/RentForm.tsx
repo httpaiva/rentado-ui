@@ -42,12 +42,13 @@ export const RentForm = ({
       endDate: rent.endDate,
       price: rent.price,
       paymentDate: rent.paymentDate,
-      renter: rent?.renter?.id,
-      location: rent?.location?.id,
+      renter: `${rent?.renter?.id}`,
+      location: `${rent?.location?.id}`,
     },
   });
 
   const mappedRenters = useMemo(() => {
+    console.log({ renters });
     return renters?.map((renter) => ({
       value: `${renter.id}`,
       label: `${renter.firstName} ${renter.lastName}`,
@@ -55,6 +56,7 @@ export const RentForm = ({
   }, [renters]);
 
   const mappedLocations = useMemo(() => {
+    console.log({ locations });
     return locations?.map((location) => ({
       value: `${location.id}`,
       label: location.name,
