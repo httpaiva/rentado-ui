@@ -16,3 +16,10 @@ export const paymentSchema = z.object({
   ),
   rent: z.string().min(1, { message: "This field has to be filled." }),
 });
+
+export const paymentFilterSchema = z.object({
+  referedMonth: z.any(),
+  referedYear: z.any(),
+  rent: z.any(),
+});
+

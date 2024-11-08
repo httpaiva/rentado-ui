@@ -28,7 +28,7 @@ function Rents() {
   const [rents, setRents] = useState<Rent[]>([]);
   const [locations, setLocations] = useState<Location[]>([]);
   const [renters, setRenters] = useState<Renter[]>([]);
-  const router = useRouter()
+  const router = useRouter();
 
   const fetchData = useCallback(async () => {
     const token = localStorage.getItem("access_token");
@@ -128,9 +128,22 @@ function Rents() {
                     </Dialog>
                   </TableCell>
                   <TableCell>
-                    <Button onClick={()=>{
-                      router.push(`/rents/${rent.id}/template`)
-                    }}>Gerar documento</Button>
+                    <Button
+                      onClick={() => {
+                        router.push(`/payments?rent_id=${rent.id}`);
+                      }}
+                    >
+                      Ver pagamentos
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={() => {
+                        router.push(`/rents/${rent.id}/template`);
+                      }}
+                    >
+                      Gerar documento
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

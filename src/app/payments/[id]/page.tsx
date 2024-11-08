@@ -77,8 +77,6 @@ function EditPayment() {
       paymentDate: values.paymentDate.toISOString(),
     }
 
-    console.log({ newValues });
-
     const response = await fetch(`${API_BASE_URL}/payment/${payment?.id}`, {
       method: "PATCH",
       headers: {

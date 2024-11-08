@@ -6,19 +6,24 @@ import { Template } from "@/types/Template";
 import { H2, PageWithHeaderAndSidebar } from "@/components";
 import { useCallback, useEffect, useState } from "react";
 import { API_BASE_URL } from "@/constants";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import { createQueryString } from "@/utils/createQueryString";
 
 function PreviewTemplate() {
   const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
   const [template, setTemplate] = useState<Template>();
+  const rent_id = searchParams.get("rent_id");
+  const query = createQueryString({ rent_id });
+
 
   const fetchData = useCallback(async () => {
     if (!template) {
       const token = localStorage.getItem("access_token");
       const response = await fetch(
-        `${API_BASE_URL}/template/translate/${params.id}?rent_id=1`,
+        `${API_BASE_URL}/template/translate/${params.id}${query}`,
         {
           method: "GET",
           headers: {
@@ -37,7 +42,7 @@ function PreviewTemplate() {
         alert("Erro ao carregar Template");
       }
     }
-  }, [template, params.id]);
+  }, [template, params.id, query]);
 
   useEffect(() => {
     console.log("Template useEffect");
