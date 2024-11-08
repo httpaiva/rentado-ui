@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { API_BASE_URL } from "@/constants";
 import Image from "next/image";
+import Link from "next/link";
 
 function SignIn() {
   const router = useRouter();
@@ -59,7 +60,7 @@ function SignIn() {
         localStorage.setItem("access_token", responseData.access_token);
         router.push("/locations");
       } else {
-        const { error, message } = responseData;
+        const { _error, message } = responseData;
         alert(message);
       }
     } catch (error) {
@@ -70,9 +71,22 @@ function SignIn() {
   return (
     <main className="flex min-h-screen">
       <section className="flex flex-col grow min-h-screen bg-zinc-50 justify-center items-center gap-10">
-        <Logo width={490} height={110} variant="black" />
-        <H4>Bem-vindo</H4>
-        <H3>Faça seu Login</H3>
+        <Link href="/">
+          <Logo width={490} height={110} variant="black" />
+        </Link>
+        <div className="flex flex-col gap-2 justify-center items-center">
+          <H4>Bem-vindo!</H4>
+          <H3>Faça seu Login</H3>
+          <P>
+            Não tem uma conta?{" "}
+            <Link
+              href="/signup"
+              className="text-blue-500 underline hover:text-blue-700"
+            >
+              Cadastre-se aqui
+            </Link>
+          </P>
+        </div>
 
         <Form {...form}>
           <form
@@ -130,11 +144,12 @@ function SignIn() {
           height={444}
           width={587}
         />
-        <H2 color="text-zinc-50">Gerenciamento de Alugueis</H2>
-        <P color="text-zinc-50">
-          A gestão de aluguel nunca ficou tão fácil. A Rentado te ajuda desde a
-          concepção, até cobranças.
-        </P>
+        <div className="p-10 flex flex-col gap-4 items-center">
+          <H2 color="text-zinc-50">Gerencie seus alugueis com Rentado</H2>
+          <H4 color="text-zinc-50">
+            Chega de preocupações, nós cuidamos de tudo!
+          </H4>
+        </div>
       </section>
     </main>
   );

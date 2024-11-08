@@ -3,7 +3,6 @@
 import {
   Logo,
   Button,
-  H3,
   Form,
   FormControl,
   FormDescription,
@@ -13,6 +12,7 @@ import {
   FormMessage,
   Input,
   H2,
+  P,
 } from "@/components";
 import withoutAuth from "@/hooks/withoutAuth";
 import { ArrowRightFromLine } from "lucide-react";
@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { API_BASE_URL } from "@/constants";
 import Image from "next/image";
+import Link from "next/link";
 
 function SignIn() {
   const router = useRouter();
@@ -56,7 +57,7 @@ function SignIn() {
         alert("As senhas não coincidem");
         return;
       }
-  
+
       const response = await fetch(`${API_BASE_URL}/user`, {
         method: "POST",
         headers: {
@@ -64,13 +65,13 @@ function SignIn() {
         },
         body: JSON.stringify(values),
       });
-  
+
       const responseData = await response.json();
       if (response.ok) {
         alert("Usuário criado com sucesso!");
         router.push("/signin");
       } else {
-        const { error, message } = responseData;
+        const { _error, message } = responseData;
         alert(message);
       }
     } catch (error) {
@@ -81,9 +82,19 @@ function SignIn() {
   return (
     <main className="flex min-h-screen">
       <section className="flex flex-col grow min-h-screen bg-zinc-50 justify-center items-center gap-4 p-4">
-        <Logo width={263} height={60} variant="black" />
+        <Link href="/">
+          <Logo width={263} height={60} variant="black" />
+        </Link>
         <H2>Crie sua conta</H2>
-        <H3>É super rápido! Vamos começar?</H3>
+        <P>
+          Já tem uma conta?{" "}
+          <Link
+            href="/signin"
+            className="text-blue-500 underline hover:text-blue-700"
+          >
+            Acesse aqui
+          </Link>
+        </P>
 
         <Form {...form}>
           <form
