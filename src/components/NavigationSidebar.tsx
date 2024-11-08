@@ -42,6 +42,14 @@ export const NavigationSidebar = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem className="w-48">
+          <Link href="/payments" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Pagamentos
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem className="w-48">
           <Link href="/templates" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Templates
