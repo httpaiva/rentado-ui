@@ -14,10 +14,9 @@ export default function PublicHeader() {
       />
       <HeaderGroup>
         <HeaderAnchor href="#start">Inicio</HeaderAnchor>
-        <HeaderAnchor href="#what-is">O que é o Rentado</HeaderAnchor>
-        <HeaderAnchor href="#benefits">Benefícios</HeaderAnchor>
+        <HeaderAnchor href="#about">Sobre o Rentado</HeaderAnchor>
+        <HeaderAnchor href="#advantages">Vantagens</HeaderAnchor>
         <HeaderAnchor href="#how-it-works">Como funciona</HeaderAnchor>
-        <HeaderAnchor href="#contact">Contato</HeaderAnchor>
         <HeaderAnchor href="/signin">Entrar</HeaderAnchor>
       </HeaderGroup>
     </HeaderWrapper>

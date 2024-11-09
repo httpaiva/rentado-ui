@@ -1,16 +1,9 @@
 "use client";
 
 import withoutAuth from "@/hooks/withoutAuth";
-import { colors } from "@/utils/tokens";
-import { Section } from "@/components/home/Section";
 import PublicHeader from "@/components/home/PublicHeader";
 import { Footer } from "@/components/Footer";
-import { H1 } from "@/components/home/Typography/H1";
-import { H2 } from "@/components/home/Typography/H2";
-import { H3 } from "@/components/home/Typography/H3";
 import Image from "next/image";
-import { Card, CTAButton, CTAAnchor } from "@/components/home/styles";
-import { P } from "@/components/home/Typography/P";
 import { useRouter } from "next/navigation";
 
 function Home() {
@@ -19,38 +12,23 @@ function Home() {
   return (
     <main>
       <PublicHeader />
-      <Section bgColor={colors.blue} id="start">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 100,
-            padding: 120,
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              flexGrow: 1,
-              gap: 56,
-            }}
-          >
-            <H1 color={colors.white}>
+      <section className="flex flex-col justify-center items-center bg-blue-600 min-h-[720px] p-8">
+        <div className="flex justify-center items-center gap-16 p-12">
+          <div className="flex flex-col gap-12 max-w-2xl text-center">
+            <h1 className="text-white text-4xl font-bold">
               Simplifique a Gestão de Seus Imóveis com o Rentado!
-            </H1>
-            <H3 color={colors.white}>
-              Gerencie contratos, pagamentos e prazos em um só lugar
-            </H3>
-            {/* <CTAAnchor href="#contact">Entre em contato</CTAAnchor> */}
-            <CTAButton
+            </h1>
+            <h3 className="text-white text-2xl">
+              Controle contratos, pagamentos e prazos em um único sistema.
+            </h3>
+            <button
+              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold"
               onClick={() => {
                 router.push("/signup");
               }}
             >
-              Cadastre-se agora
-            </CTAButton>
+              Experimente agora - Cadastro Gratuito!
+            </button>
           </div>
 
           <Image
@@ -60,183 +38,147 @@ function Home() {
             width={500}
           />
         </div>
-      </Section>
-      <Section bgColor={colors.gray_dark} id="what-is">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            maxWidth: 550,
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            gap: 48,
-          }}
-        >
-          <H1 color={colors.white}>O que é o Rentado?</H1>
-          <H3 color={colors.white}>
-            O Rentado é um software especializado em facilitar o gerenciamento
-            de aluguéis. Ao contrário de plataformas como o Quinto Andar e
-            Airbnb, que focam na divulgação, o Rentado permite que locadores
-            tenham total controle sobre seus contratos, imóveis e locatários.
-          </H3>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 60,
-            padding: 60,
-          }}
-        >
-          <Card maxWidth={220}>
-            <P color={colors.white}>Cadastro de imóveis e locatários</P>
-          </Card>
+      </section>
 
-          <Card maxWidth={220}>
-            <P color={colors.white}>
-              Centralização de contas a pagar e a receber, e Serviços.
-            </P>
-          </Card>
-
-          <Card maxWidth={220}>
-            <P color={colors.white}>Notificações de prazos importantes</P>
-          </Card>
+      <section className="bg-gray-800 text-center py-24" id="about">
+        <div className="max-w-xl mx-auto text-white mb-12">
+          <h1 className="text-4xl font-bold">Sobre o Rentado</h1>
+          <h3 className="text-2xl mt-6 text-justify">
+            O Rentado é uma plataforma feita para locadores autônomos que
+            desejam gerenciar seus imóveis sem complicação. Diferente de
+            plataformas de divulgação, o Rentado se concentra na organização
+            completa dos seus contratos, imóveis e locatários em um único lugar.
+          </h3>
         </div>
-        <Image
-          src="/house-searching.svg"
-          alt="Boy searching for houses"
-          height={300}
-          width={300}
-        />
-      </Section>
-      <Section bgColor={colors.white} id="benefits">
-        <Card bgColor={colors.blue} gap={32}>
-          <div
-            style={{
-              textAlign: "initial",
-              maxWidth: 500,
-              display: "flex",
-              flexDirection: "column",
-              gap: 32,
-              margin: 20,
-            }}
-          >
-            <H2 color={colors.white}>Benefícios de Usar o Rentado</H2>
-            <P color={colors.white}>
-              - Gerenciamento Completo: Controle total sobre seus imóveis e
-              contratos.
-            </P>
-            <P color={colors.white}>
-              - Notificações Inteligentes: Nunca perca uma data importante, como
-              vencimento de aluguel ou término de contrato.
-            </P>
-            <P color={colors.white}>
-              - Relatórios Simples: Tenha uma visão clara das contas e contratos
-              em andamento.
-            </P>
+
+        <div className="flex flex-wrap justify-center gap-12 p-12">
+          <div className="bg-blue-600 text-white p-6 rounded-lg shadow-lg max-w-xs w-full text-center">
+            <p>Cadastro completo de imóveis e inquilinos</p>
           </div>
-        </Card>
-        <div
-          style={{
-            position: "relative",
-            top: -125,
-            right: -320,
-            zIndex: 1,
-          }}
-        >
+
+          <div className="bg-blue-600 text-white p-6 rounded-lg shadow-lg max-w-xs w-full text-center">
+            <p>
+              Centralização de contas e serviços, para um controle financeiro
+              sem esforço
+            </p>
+          </div>
+
+          <div className="bg-blue-600 text-white p-6 rounded-lg shadow-lg max-w-xs w-full text-center">
+            <p>Alertas automáticos para prazos importantes</p>
+          </div>
+        </div>
+        <div className="flex justify-center">
           <Image
-            src="/device.svg"
-            alt="Smartphone device"
-            height={250}
-            width={240}
+            src="/house-searching.svg"
+            alt="Boy searching for houses"
+            height={300}
+            width={300}
           />
         </div>
-      </Section>
-      <Section bgColor={colors.gray_dark} id="how-it-works">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 60,
-          }}
-        >
-          <H1 color={colors.white}>Como Funciona?</H1>
-          <Card
-            bgColor={colors.blue}
-            borderColor={colors.blue}
-            maxWidth={300}
-            gap={24}
-          >
-            <H2 color={colors.white}>Passo 1</H2>
-            <P color={colors.white}>Cadastre seus imóveis e locatários.</P>
-          </Card>
+      </section>
 
-          <Card
-            bgColor={colors.blue}
-            borderColor={colors.blue}
-            maxWidth={300}
-            gap={24}
-          >
-            <H2 color={colors.white}>Passo 2</H2>
-            <P color={colors.white}>
-              Insira dados sobre contratos e pagamentos.
-            </P>
-          </Card>
-
-          <Card
-            bgColor={colors.blue}
-            borderColor={colors.blue}
-            maxWidth={300}
-            gap={24}
-          >
-            <H2 color={colors.white}>Passo 3</H2>
-            <P color={colors.white}>
-              Receba notificações sobre vencimentos e eventos importantes.
-            </P>
-          </Card>
-
-          <Card
-            bgColor={colors.blue}
-            borderColor={colors.blue}
-            maxWidth={300}
-            gap={24}
-          >
-            <H2 color={colors.white}>Passo 4</H2>
-            <P color={colors.white}>
-              Acompanhe as movimentações financeiras e contratos de forma clara
-              e centralizada.
-            </P>
-          </Card>
-        </div>
-      </Section>
-
-      <Section bgColor={colors.blue} id="contact" minHeight={360}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 24,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <H2 color={colors.white}>
-            Pronto para simplificar a gestão dos seus imóveis?
-          </H2>
-
-          <H2 color={colors.white}>Entre em contato:</H2>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <Image src="/gmail.svg" alt="Gmail Logo" height={40} width={40} />
-            <H3 color={colors.white}>rentadooficial@gmail.com</H3>
+      <section className="bg-blue-600 text-white py-24" id="advantages">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">Vantagens de Usar o Rentado</h2>
           </div>
-          {/*<CTAButton>Comece agora</CTAButton>
-          <CTAButton>Entre em contato</CTAButton>*/}
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+            <div className="flex flex-col items-center justify-center gap-12">
+              <div className="bg-white text-gray-900 p-8 rounded-xl shadow-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                <h3 className="text-xl font-semibold mb-4 text-center">
+                  Controle Total
+                </h3>
+                <p className="text-center">
+                  Mantenha tudo em um só lugar, do cadastro de imóveis aos
+                  contratos.
+                </p>
+              </div>
+
+              <div className="bg-white text-gray-900 p-8 rounded-xl shadow-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                <h3 className="text-xl font-semibold mb-4 text-center">
+                  Alertas Inteligentes
+                </h3>
+                <p className="text-center">
+                  Receba lembretes automáticos de datas importantes para evitar
+                  problemas.
+                </p>
+              </div>
+
+              <div className="bg-white text-gray-900 p-8 rounded-xl shadow-lg flex flex-col items-center justify-center transition-transform transform hover:scale-105">
+                <h3 className="text-xl font-semibold mb-4 text-center">
+                  Relatórios Intuitivos
+                </h3>
+                <p className="text-center">
+                  Visualize suas finanças e contratos em poucos cliques, sem
+                  complicação.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex justify-center">
+              <Image
+                src="/device.svg"
+                alt="Smartphone device"
+                height={200}
+                width={200}
+                className="w-full max-w-xs sm:max-w-md lg:max-w-sm"
+              />
+            </div>
+          </div>
         </div>
-      </Section>
+      </section>
+
+      <section className="bg-gray-800 py-24" id="how-it-works">
+        <div className="flex flex-col items-center gap-12">
+          <h1 className="text-white text-4xl font-bold text-center">
+            Como Funciona?
+          </h1>
+
+          {[
+            {
+              title: "Passo 1",
+              content: "Cadastre seus imóveis e locatários.",
+            },
+            {
+              title: "Passo 2",
+              content: "Insira dados sobre contratos e pagamentos.",
+            },
+            {
+              title: "Passo 3",
+              content: "Deixe o Rentado te lembrar de cada prazo e vencimento.",
+            },
+            {
+              title: "Passo 4",
+              content: "Monitore todos os dados financeiros e contratuais de forma.",
+            },
+          ].map((step) => (
+            <div
+              key={step.title}
+              className="bg-blue-600 text-white p-6 rounded-lg max-w-xs text-center"
+            >
+              <h3 className="text-xl font-semibold">{step.title}</h3>
+              <p>{step.content}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-blue-600 py-16">
+        <div className="flex flex-col items-center gap-6">
+          <h2 className="text-white text-3xl font-semibold text-center">
+            Quer transformar a gestão dos seus imóveis?
+          </h2>
+          <button
+            className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold"
+            onClick={() => {
+              router.push("/signup");
+            }}
+          >
+            Cadastre-se agora
+          </button>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
