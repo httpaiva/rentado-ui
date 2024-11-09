@@ -4,17 +4,17 @@ import withAuth from "@/hooks/withAuth";
 import { API_BASE_URL } from "@/constants";
 import { PageWithHeaderAndSidebar, H2 } from "@/components";
 import { useRouter } from "next/navigation";
-import { locationsSchema } from "../schema";
+import { renterSchema } from "../schema";
 import { z } from "zod";
-import { LocationForm } from "../components/LocationForm";
+import { RenterForm } from "../components/RenterForm";
 
-function NewLocation() {
+function NewRenter() {
   const router = useRouter();
 
-  const onSubmit = async (values: z.infer<typeof locationsSchema>) => {
+  const onSubmit = async (values: z.infer<typeof renterSchema>) => {
     const token = localStorage.getItem("access_token");
 
-    const response = await fetch(`${API_BASE_URL}/locations`, {
+    const response = await fetch(`${API_BASE_URL}/renters`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,8 +25,8 @@ function NewLocation() {
 
     const responseData = await response.json();
     if (response.ok) {
-      alert("Imóvel cadastrado com sucesso!");
-      router.push("/locations");
+      alert("Locatário cadastrado com sucesso!");
+      router.push("/renters");
     } else {
       const { _error, message } = responseData;
       alert(message);
@@ -36,26 +36,25 @@ function NewLocation() {
   return (
     <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
-        <H2>Novo Imóvel</H2>
+        <H2>Novo Locatário</H2>
 
-        <LocationForm
-          location={{
-            name: "",
-            country: "",
-            state: "",
-            city: "",
-            neighborhood: "",
-            street: "",
-            number: "",
-            postalCode: "",
-            complement: "",
+        <RenterForm
+          renter={{
+            firstName: "",
+            lastName: "",
+            document_cpf: "",
+            document_rg: "",
+            nationality: "",
+            birthDate: undefined,
+            maritalStatus: "",
+            ocupation: "",
           }}
           onSubmit={onSubmit}
-          buttonText="Criar Imóvel"
+          buttonText="Criar Locatário"
         />
       </main>
     </PageWithHeaderAndSidebar>
   );
 }
 
-export default withAuth(NewLocation);
+export default withAuth(NewRenter);

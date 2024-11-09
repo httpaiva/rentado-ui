@@ -10,18 +10,37 @@ import {
   Input,
 } from "@/components";
 import { DatePicker } from "@/components/ui/datepicker";
+import { Renter } from "@/types/Renter";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { renterSchema } from "../schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
-  form: any;
+  renter: Renter;
   onSubmit: (values: any) => Promise<void>;
   buttonText?: string;
 };
 
 export const RenterForm = ({
-  form,
+  renter,
   onSubmit,
   buttonText = "submit",
 }: Props) => {
+  const form = useForm<z.infer<typeof renterSchema>>({
+    resolver: zodResolver(renterSchema),
+    defaultValues: {
+      firstName: renter.firstName,
+      lastName: renter.lastName,
+      document_cpf: renter.document_cpf,
+      document_rg: renter.document_rg,
+      nationality: renter.nationality,
+      birthDate: renter.birthDate,
+      maritalStatus: renter.maritalStatus,
+      ocupation: renter.ocupation,
+    },
+  });
+
   return (
     <Form {...form}>
       <form

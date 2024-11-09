@@ -3,22 +3,23 @@
 import withAuth from "@/hooks/withAuth";
 import { useCallback, useEffect, useState } from "react";
 import { API_BASE_URL } from "@/constants";
-import { Location } from "@/types/Location";
 import { H1, PageWithHeaderAndSidebar } from "@/components";
 import { useParams, useRouter } from "next/navigation";
-import { LocationForm } from "../components/LocationForm";
-import { locationsSchema } from "../schema";
+import { RenterForm } from "../components/RenterForm";
+import { renterSchema } from "../schema";
 import { z } from "zod";
+import { Renter } from "@/types/Renter";
 
-function EditLocation() {
-  const [location, setLocation] = useState<Location>();
+function EditRenter() {
+  const [renter, setRenter] = useState<Renter>();
   const params = useParams<{ id: string }>();
   const router = useRouter();
+
   
 
   const fetchData = useCallback(async () => {
     const token = localStorage.getItem("access_token");
-    const response = await fetch(`${API_BASE_URL}/locations/${params.id}`, {
+    const response = await fetch(`${API_BASE_URL}/renters/${params.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -27,22 +28,22 @@ function EditLocation() {
     });
     const responseData = await response.json();
     if (response.ok && responseData) {
-      setLocation(responseData);
+        setRenter(responseData);
     } else {
-      alert("Erro ao carregar imóvel");
+      alert("Erro ao carregar locatário");
     }
   }, [params.id]);
 
   useEffect(() => {
-    console.log("Location useEffect");
+    console.log("Renter useEffect");
 
     fetchData();
   }, [fetchData]);
 
-  const onSubmit = async (values: z.infer<typeof locationsSchema>) => {
+  const onSubmit = async (values: z.infer<typeof renterSchema>) => {
     const token = localStorage.getItem("access_token");
 
-    const response = await fetch(`${API_BASE_URL}/locations/${location?.id}`, {
+    const response = await fetch(`${API_BASE_URL}/renters/${renter?.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -53,8 +54,8 @@ function EditLocation() {
 
     const responseData = await response.json();
     if (response.ok) {
-      alert("Imóvel atualizado com sucesso!");
-      router.push("/locations");
+      alert("Locatário atualizado com sucesso!");
+      router.push("/renters");
     } else {
       const { _error, message } = responseData;
       alert(message);
@@ -64,13 +65,13 @@ function EditLocation() {
   return (
     <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
-        <H1>Editar imóvel</H1>
+        <H1>Editar locatário</H1>
 
-        {location && (
-          <LocationForm
-            location={location}
+        {renter && (
+          <RenterForm
+            renter={renter}
             onSubmit={onSubmit}
-            buttonText="Editar Imóvel"
+            buttonText="Editar locatário"
           />
         )}
       </main>
@@ -78,4 +79,4 @@ function EditLocation() {
   );
 }
 
-export default withAuth(EditLocation);
+export default withAuth(EditRenter);

@@ -1,5 +1,5 @@
 export type Renter = {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   document_cpf: string;

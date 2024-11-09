@@ -2,7 +2,7 @@ import { Location } from "./Location";
 import { Renter } from "./Renter";
 
 export type Rent = {
-  id: string;
+  id?: string;
   initialDate: Date;
   endDate: Date;
   price: number;
