@@ -9,4 +9,5 @@ export type Rent = {
   paymentDate: Date;
   renter?: Renter;
   location?: Location;
+  active?: boolean;
 };

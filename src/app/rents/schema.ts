@@ -8,3 +8,8 @@ export const rentSchema = z.object({
   renter: z.any(),
   location: z.any(),
 });
+
+export const rentFilterSchema = z.object({
+  status: z.enum(["active", "inactive", "all"]),
+});
+

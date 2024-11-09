@@ -15,31 +15,35 @@ import {
   TableHeader,
   TableRow,
   PageWithHeaderAndSidebar,
+  H3,
 } from "@/components";
 import { useRouter } from "next/navigation";
+import { RentFilterForm } from "./components/RentFilterForm";
+
+type RentFilterProps = {
+  active?: boolean | null;
+};
 
 function Rents() {
   const router = useRouter();
   const [rents, setRents] = useState<Rent[]>([]);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (props?: RentFilterProps) => {
     const token = localStorage.getItem("access_token");
 
-    try {
-      // Executa todas as chamadas em paralelo
-      const rentsResponse =
-        await fetch(`${API_BASE_URL}/rents`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
+    const query = typeof props?.active === 'boolean' ? `?active=${props?.active}` : '';
 
-      // Extrai o JSON das respostas
+    try {
+      const rentsResponse = await fetch(`${API_BASE_URL}/rents${query}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       const rentsData = await rentsResponse.json();
 
-      // Verifica se as respostas foram bem-sucedidas antes de definir o estado
       if (rentsResponse.ok) setRents(rentsData);
       else alert("Erro ao carregar Aluguéis");
     } catch (error) {
@@ -79,6 +83,48 @@ function Rents() {
     }
   };
 
+  const onToggleActive = async (rent: Rent) => {
+    const token = localStorage.getItem("access_token");
+
+    const confirmation = window.confirm(
+      "Tem certeza que deseja mudar o status desse aluguél?",
+    );
+
+    if (confirmation) {
+      const response = await fetch(`${API_BASE_URL}/rents/${rent.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ active: !rent.active }),
+      });
+
+      if (response.ok) {
+        alert("Aluguél editado com sucesso!");
+        router.refresh();
+      } else {
+        const responseData = await response.json();
+        const { _error, message } = responseData;
+        console.error(message);
+      }
+    }
+  };
+
+  const onFilter = (values: { status: "active" | "inactive" | "all" }) => {
+    switch (values.status) {
+      case "active":
+        fetchData({ active: true });
+        break;
+      case "inactive":
+        fetchData({ active: false });
+        break;
+      case "all":
+        fetchData();
+        break;
+    }
+  };
+
   return (
     <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
@@ -92,6 +138,11 @@ function Rents() {
           Adicionar novo aluguél
         </Button>
 
+        <section className="w-full flex flex-col gap-2">
+          <H3>Filtro</H3>
+          <RentFilterForm onSubmit={onFilter} buttonText="Filtrar" />
+        </section>
+
         {rents.length === 0 ? (
           <P>Você ainda não possui aluguéis</P>
         ) : (
@@ -100,6 +151,7 @@ function Rents() {
               <TableRow>
                 <TableHead>Imóvel</TableHead>
                 <TableHead>Locatário</TableHead>
+                <TableHead>Ação</TableHead>
                 <TableHead>Ação</TableHead>
                 <TableHead>Ação</TableHead>
                 <TableHead>Ação</TableHead>
@@ -136,6 +188,16 @@ function Rents() {
                       }}
                     >
                       Gerar documento
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="destructive"
+                      onClick={() => {
+                        onToggleActive(rent);
+                      }}
+                    >
+                      {rent.active ? "Finalizar" : "Ativar"} aluguél
                     </Button>
                   </TableCell>
                   <TableCell>
