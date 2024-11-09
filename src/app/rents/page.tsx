@@ -1,8 +1,6 @@
 "use client";
 
 import withAuth from "@/hooks/withAuth";
-import { CreateRentModal } from "./components/CreateRentModal";
-import { EditRentModal } from "./components/EditRentModal";
 import { useCallback, useEffect, useState } from "react";
 import { API_BASE_URL } from "@/constants";
 import { Rent } from "@/types/Rent";
@@ -10,8 +8,6 @@ import {
   Button,
   H1,
   P,
-  Dialog,
-  DialogTrigger,
   Table,
   TableBody,
   TableCell,
@@ -20,62 +16,32 @@ import {
   TableRow,
   PageWithHeaderAndSidebar,
 } from "@/components";
-import { Location } from "@/types/Location";
-import { Renter } from "@/types/Renter";
 import { useRouter } from "next/navigation";
 
 function Rents() {
-  const [rents, setRents] = useState<Rent[]>([]);
-  const [locations, setLocations] = useState<Location[]>([]);
-  const [renters, setRenters] = useState<Renter[]>([]);
   const router = useRouter();
+  const [rents, setRents] = useState<Rent[]>([]);
 
   const fetchData = useCallback(async () => {
     const token = localStorage.getItem("access_token");
 
     try {
       // Executa todas as chamadas em paralelo
-      const [rentsResponse, locationsResponse, rentersResponse] =
-        await Promise.all([
-          fetch(`${API_BASE_URL}/rents`, {
+      const rentsResponse =
+        await fetch(`${API_BASE_URL}/rents`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-          }),
-          fetch(`${API_BASE_URL}/locations`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }),
-          fetch(`${API_BASE_URL}/renters`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }),
-        ]);
+          });
 
       // Extrai o JSON das respostas
-      const [rentsData, locationsData, rentersData] = await Promise.all([
-        rentsResponse.json(),
-        locationsResponse.json(),
-        rentersResponse.json(),
-      ]);
+      const rentsData = await rentsResponse.json();
 
       // Verifica se as respostas foram bem-sucedidas antes de definir o estado
       if (rentsResponse.ok) setRents(rentsData);
       else alert("Erro ao carregar Aluguéis");
-
-      if (locationsResponse.ok) setLocations(locationsData);
-      else alert("Erro ao carregar Imóveis");
-
-      if (rentersResponse.ok) setRenters(rentersData);
-      else alert("Erro ao carregar Locatários");
     } catch (error) {
       console.error("Erro ao carregar dados", error);
       alert("Erro ao carregar dados");
@@ -86,17 +52,45 @@ function Rents() {
     fetchData();
   }, [fetchData]);
 
+  const onDelete = async (rentID: string) => {
+    const token = localStorage.getItem("access_token");
+
+    const confirmation = window.confirm(
+      "Tem certeza que deseja deletar esse aluguél?",
+    );
+
+    if (confirmation) {
+      const response = await fetch(`${API_BASE_URL}/rents/${rentID}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        alert("Aluguél deletado com sucesso!");
+        setRents((prevRents) => prevRents.filter((t) => t.id !== rentID));
+      } else {
+        const responseData = await response.json();
+        const { _error, message } = responseData;
+        alert(message);
+      }
+    }
+  };
+
   return (
     <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">
         <H1>Seus Aluguéis</H1>
 
-        <Dialog modal={false}>
-          <DialogTrigger asChild>
-            <Button>Adicionar novo aluguél</Button>
-          </DialogTrigger>
-          <CreateRentModal locations={locations} renters={renters} />
-        </Dialog>
+        <Button
+          onClick={() => {
+            router.push("/rents/new");
+          }}
+        >
+          Adicionar novo aluguél
+        </Button>
 
         {rents.length === 0 ? (
           <P>Você ainda não possui aluguéis</P>
@@ -108,6 +102,8 @@ function Rents() {
                 <TableHead>Locatário</TableHead>
                 <TableHead>Ação</TableHead>
                 <TableHead>Ação</TableHead>
+                <TableHead>Ação</TableHead>
+                <TableHead>Ação</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -116,16 +112,13 @@ function Rents() {
                   <TableCell>{rent.location?.name}</TableCell>
                   <TableCell>{`${rent.renter?.firstName} ${rent.renter?.lastName}`}</TableCell>
                   <TableCell>
-                    <Dialog modal>
-                      <DialogTrigger asChild>
-                        <Button>Ver aluguél</Button>
-                      </DialogTrigger>
-                      <EditRentModal
-                        rent={rent}
-                        locations={locations}
-                        renters={renters}
-                      />
-                    </Dialog>
+                    <Button
+                      onClick={() => {
+                        router.push(`/rents/${rent.id}`);
+                      }}
+                    >
+                      Ver aluguél
+                    </Button>
                   </TableCell>
                   <TableCell>
                     <Button
@@ -143,6 +136,16 @@ function Rents() {
                       }}
                     >
                       Gerar documento
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="destructive"
+                      onClick={() => {
+                        onDelete(rent.id!);
+                      }}
+                    >
+                      Deletar aluguél
                     </Button>
                   </TableCell>
                 </TableRow>
