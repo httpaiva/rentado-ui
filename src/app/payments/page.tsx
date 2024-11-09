@@ -112,7 +112,7 @@ function Payments() {
       } else {
         const responseData = await response.json();
         const { _error, message } = responseData;
-        alert(message);
+        console.error(message);
       }
     }
   };

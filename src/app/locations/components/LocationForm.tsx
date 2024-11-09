@@ -9,18 +9,39 @@ import {
   FormMessage,
   Input,
 } from "@/components";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { locationsSchema } from "../schema";
+import { Location } from "@/types/Location";
+import { z } from "zod";
 
 type Props = {
-  form: any;
+  location: Location;
   onSubmit: (values: any) => Promise<void>;
   buttonText?: string;
 };
 
 export const LocationForm = ({
-  form,
+  location,
   onSubmit,
   buttonText = "submit",
 }: Props) => {
+
+  const form = useForm<z.infer<typeof locationsSchema>>({
+    resolver: zodResolver(locationsSchema),
+    defaultValues: {
+      name: location?.name,
+      country: location?.country,
+      state: location?.state,
+      city: location?.city,
+      neighborhood: location?.neighborhood,
+      street: location?.street,
+      number: location?.number,
+      postalCode: location?.postalCode,
+      complement: location?.complement,
+    },
+  });
+
   return (
     <Form {...form}>
       <form
