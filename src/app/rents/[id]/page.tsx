@@ -33,7 +33,7 @@ function EditRent() {
               Authorization: `Bearer ${token}`,
             },
           }),
-          fetch(`${API_BASE_URL}/locations`, {
+          fetch(`${API_BASE_URL}/locations/available`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -60,7 +60,7 @@ function EditRent() {
       if (rentResponse.ok) setRent(rentData);
       else alert("Erro ao carregar Aluguel");
 
-      if (locationsResponse.ok) setLocations(locationsData);
+      if (locationsResponse.ok) setLocations([...locationsData, rentData.location]);
       else alert("Erro ao carregar Imóveis");
 
       if (rentersResponse.ok) setRenters(rentersData);

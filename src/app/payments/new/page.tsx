@@ -3,16 +3,12 @@
 import withAuth from "@/hooks/withAuth";
 import { useCallback, useEffect, useState } from "react";
 import { API_BASE_URL } from "@/constants";
-import {
-  PageWithHeaderAndSidebar,
-  H2,
-} from "@/components";
+import { PageWithHeaderAndSidebar, H2 } from "@/components";
 import { useRouter } from "next/navigation";
 import { paymentSchema } from "../schema";
 import { z } from "zod";
 import { PaymentForm } from "../components/PaymentForm";
 import { Rent } from "@/types/Rent";
-
 
 function NewPayment() {
   const router = useRouter();
@@ -49,7 +45,8 @@ function NewPayment() {
     const newValues = {
       ...values,
       paymentDate: values.paymentDate.toISOString(),
-    }
+      rent: { id: values.rent },
+    };
 
     const response = await fetch(`${API_BASE_URL}/payment`, {
       method: "POST",
@@ -69,7 +66,7 @@ function NewPayment() {
       alert(message);
     }
   };
-  
+
   return (
     <PageWithHeaderAndSidebar>
       <main className="flex min-h-screen flex-col items-center gap-20 p-20">

@@ -22,7 +22,7 @@ function NewRent() {
     try {
       // Executa todas as chamadas em paralelo
       const [locationsResponse, rentersResponse] = await Promise.all([
-        fetch(`${API_BASE_URL}/locations`, {
+        fetch(`${API_BASE_URL}/locations/available`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -63,12 +63,14 @@ function NewRent() {
     const token = localStorage.getItem("access_token");
 
     const newValues = {
-        ...values,
-        initialDate: values.initialDate.toISOString(),
-        endDate: values.endDate.toISOString(),
-        paymentDate: values.paymentDate.toISOString(),
-        active: true,
-      }
+      ...values,
+      initialDate: values.initialDate.toISOString(),
+      endDate: values.endDate.toISOString(),
+      paymentDate: values.paymentDate.toISOString(),
+      active: true,
+      renter: { id: values.renter },
+      location: { id: values.location },
+    };
 
     const response = await fetch(`${API_BASE_URL}/rents`, {
       method: "POST",
