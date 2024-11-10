@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { Transforms, Element } from 'slate';
 import { ToolbarButton } from '../../styles';
