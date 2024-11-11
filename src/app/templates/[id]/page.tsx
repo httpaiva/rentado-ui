@@ -42,8 +42,6 @@ function EditTemplate() {
     }
   };
 
-  console.log({template: JSON.stringify(template?.content)});
-
   const fetchData = useCallback(async () => {
     if (!template) {
       const token = localStorage.getItem("access_token");
@@ -64,7 +62,7 @@ function EditTemplate() {
         alert("Erro ao carregar Template");
       }
     }
-  }, []);
+  }, [params.id, template]);
 
   useEffect(() => {
     console.log("Template useEffect");
